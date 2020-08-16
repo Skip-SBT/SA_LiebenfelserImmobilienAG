@@ -37,10 +37,10 @@ and open the template in the editor.
         <div class="results">
             <label>
                 <h3>Tragbarkeit</h3>
-                <input type="number" name="Result" value="<?php
-                                                            if (isset($_POST['calc'])) {
-                                                                echo calcBelehnung($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
-                                                            } ?>" readonly>
+                <input type="text" name="Result" value="<?php
+                                                        if (isset($_POST['calc'])) {
+                                                            echo calcTragbarkeit($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
+                                                        } ?>" readonly>
 
             </label>
             <label>
@@ -48,17 +48,17 @@ and open the template in the editor.
                 <input type="text" name="Result" value="<?php
                                                         if (isset($_POST['calc'])) {
                                                             $zins = calcZins($_POST['Kaufpreis'], $_POST['Ek']);
-                                                            echo $zins. " CHF";
+                                                            echo $zins . " CHF";
                                                         } ?>" readonly>
 
 
             </label>
             <label>
                 <h3>Armotisation</h3>
-                <input type="number" name="Result" value="<?php
-                                                            if (isset($_POST['calc'])) {
-                                                                echo calcBelehnung($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
-                                                            } ?>" readonly>
+                <input type="text" name="Result" value="<?php
+                                                        if (isset($_POST['calc'])) {
+                                                            echo calcAmotisation($_POST['Kaufpreis'], $_POST['Ek']) . " CHF";
+                                                        } ?>" readonly>
             </label>
             <label>
                 <h3>Unterhalts- und Nebenkosten</h3>
@@ -71,10 +71,10 @@ and open the template in the editor.
             </label>
             <label>
                 <h3>Monatliche Gesammtkosten</h3>
-                <input type="number" name="Result" value="<?php
-                                                            if (isset($_POST['calc'])) {
-                                                                echo calcBelehnung($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
-                                                            } ?>" readonly>
+                <input type="text" name="Result" value="<?php
+                                                        if (isset($_POST['calc'])) {
+                                                            echo calcMonatlichegesammtkosten($_POST['Kaufpreis'], $_POST['Ek']) . " CHF";
+                                                        } ?>" readonly>
 
             </label>
             <label>
@@ -116,10 +116,40 @@ and open the template in the editor.
         echo number_format($zins);
     }
 
-    function calcTragbarkeit($kaufpreis, $einkommen){
-        
+    function calcTragbarkeit($kaufpreis, $ek, $einkommen)
+    {
+        $hypo = 100 - 100 / $kaufpreis * $ek;
+        $amotisationsbetrag = (($kaufpreis - $ek) * ((100 - $hypo) / 100)) / 15;
+        $zins =  ($kaufpreis - $ek) * 0.05;
+        $unterhaltskosten = $kaufpreis * 0.01;
+        $gesammt = ($zins + $amotisationsbetrag + $unterhaltskosten) / 12;
+
+        $monatlicheseinkommen = $einkommen / 12;
+        $res = (100 / $monatlicheseinkommen) * $gesammt;
+        if($res > 33.0){
+            echo number_format($res)." % Tragbarkeit nicht gegeben";
+        }else{
+            echo number_format($res)." % Tragbarkeit gegeben";
+        }
+       
     }
 
+    function calcAmotisation($kaufpreis, $ek)
+    {
+        $hypo = 100 - 100 / $kaufpreis * $ek;
+        $amotisationsbetrag = (($kaufpreis - $ek) * ((100 - $hypo) / 100)) / 15;
+        echo number_format($amotisationsbetrag);
+    }
+    function calcMonatlichegesammtkosten($kaufpreis, $ek)
+    {
+        $hypo = 100 - 100 / $kaufpreis * $ek;
+        $amotisationsbetrag = (($kaufpreis - $ek) * ((100 - $hypo) / 100)) / 15;
+        $zins =  ($kaufpreis - $ek) * 0.05;
+        $unterhaltskosten = $kaufpreis * 0.01;
+
+        $gesammt = ($zins + $amotisationsbetrag + $unterhaltskosten) / 12;
+        echo number_format($gesammt);
+    }
     ?>
 
 </body>
