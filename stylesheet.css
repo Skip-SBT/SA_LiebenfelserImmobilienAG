@@ -1,0 +1,44 @@
+/* 
+Filename       : stylesheet
+    Created on : 05.07.2020, 22:48:58
+    Author     : Maximilian Hubrath
+*/
+
+* {
+    margin: 0;
+}
+
+header {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.5em;
+}
+
+body {
+    background-color: thistle;
+}
+
+form {
+    padding-top: 10%;
+}
+
+label {
+    margin-bottom: 60px;
+    width: 120%;
+}
+
+.input {
+    color: springgreen;
+    float: left;
+    padding-left: 5%;
+}
+
+input {
+    width: 200px;
+}
+
+.results {
+    color: violet;
+    float: right;
+    padding-right: 5%;
+    width: 20%;
+}
