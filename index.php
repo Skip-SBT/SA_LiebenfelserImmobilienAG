@@ -32,7 +32,7 @@ and open the template in the editor.
                 <h3>Jahreseinkommen</h3>
                 <input type="number" name="Jahreseinkommen" value="<?php echo $_POST['Jahreseinkommen'] ?>" />
             </label>
-            <button type="submit" name="calc">Berechnen</button>
+            <input type="submit" name="calc" value="Berechnen">
         </div>
         <div class="results">
             <label>
@@ -78,7 +78,7 @@ and open the template in the editor.
 
             </label>
             <label>
-                <h3>Belehung</h3>
+                <h3>Belehnung</h3>
                 <input type="Text" name="Result" value="<?php
                                                         if (isset($_POST['calc'])) {
                                                             echo calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']);
@@ -113,6 +113,9 @@ and open the template in the editor.
     {
         $hypo = $kaufpreis - $ek;
         $zins = $hypo * 0.05;
+        if ($zins < 0) {
+            $zins = 0;
+        }
         echo number_format($zins);
     }
 
@@ -126,18 +129,26 @@ and open the template in the editor.
 
         $monatlicheseinkommen = $einkommen / 12;
         $res = (100 / $monatlicheseinkommen) * $gesammt;
-        if($res > 33.0){
-            echo number_format($res)." % Tragbarkeit nicht gegeben";
-        }else{
-            echo number_format($res)." % Tragbarkeit gegeben";
+        if ($res > 33.0) {
+            if ($res > 100) {
+                $res = 100;
+            }
+            echo number_format($res) . " % Tragbarkeit nicht gegeben";
+        } else {
+            if ($res < 0) {
+                $res = 0;
+            }
+            echo number_format($res) . " % Tragbarkeit gegeben";
         }
-       
     }
 
     function calcAmotisation($kaufpreis, $ek)
     {
         $hypo = 100 - 100 / $kaufpreis * $ek;
         $amotisationsbetrag = (($kaufpreis - $ek) * ((100 - $hypo) / 100)) / 15;
+        if ($amotisationsbetrag < 0) {
+            $amotisationsbetrag = 0;
+        }
         echo number_format($amotisationsbetrag);
     }
     function calcMonatlichegesammtkosten($kaufpreis, $ek)
@@ -146,6 +157,12 @@ and open the template in the editor.
         $amotisationsbetrag = (($kaufpreis - $ek) * ((100 - $hypo) / 100)) / 15;
         $zins =  ($kaufpreis - $ek) * 0.05;
         $unterhaltskosten = $kaufpreis * 0.01;
+        if ($zins < 0) {
+            $zins = 0;
+        }
+        if ($amotisationsbetrag < 0) {
+            $amotisationsbetrag = 0;
+        }
 
         $gesammt = ($zins + $amotisationsbetrag + $unterhaltskosten) / 12;
         echo number_format($gesammt);
