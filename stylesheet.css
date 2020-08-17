@@ -7,23 +7,32 @@ Filename       : stylesheet
 * {
     margin: 0;
     font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    color: #383434;
+    letter-spacing: 0.23px;
+    line-height: 27px;
 }
 
 header {
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Raleway', serif;
     font-size: 1.5em;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.upper {
+    height: 25vh;
+}
+
 body {
-    background-color: blanchedalmond;
+    background-color: #f7f4ed;
     padding-top: 5%;
 }
 
 form {
     padding-top: 10%;
+    position: relative;
 }
 
 label {
@@ -44,6 +53,59 @@ input {
     float: right;
     padding-right: 5%;
     width: 20%;
+}
+
+.text {
+    width: 75%;
+    margin: auto;
+    bottom: 0;
+    margin-top: 35%;
+    height: 100vh;
+    text-justify: auto;
+}
+
+.collapsible {
+    background-color: #c7bb9f;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+.collapsible:after {
+    content: '\002B';
+    color: #777;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+.active,
+.collapsible:hover {
+    background-color: peru;
+}
+
+.active::after {
+    content: "\2212";
+}
+
+.content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f7f4ed;
+}
+
+p {
+    font-weight: 400;
+    font-size: 16px;
+    color: #383434;
+    letter-spacing: 0.23px;
+    line-height: 27px;
 }
 
 input[type=submit] {
