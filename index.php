@@ -33,8 +33,12 @@ and open the template in the editor.
                     <h3>Jahreseinkommen</h3>
                     <input type="number" name="Jahreseinkommen" value="<?php echo $_POST['Jahreseinkommen'] ?>" />
                 </label>
-                <input type="submit" name="calc" value="Berechnen">
+
+                <input type="submit" name="calc" value="Berechnen" id="b1">
+
             </div>
+
+
             <div class="results">
                 <label>
                     <h3>Tragbarkeit</h3>
@@ -80,15 +84,16 @@ and open the template in the editor.
                 </label>
                 <label>
                     <h3>Belehnung</h3>
-                    <input type="Text" name="Result" value="<?php
-                                                            if (isset($_POST['calc'])) {
-                                                                echo calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']);
-                                                            } ?>" readonly>
+                    <input type="Text" name="Result" id="b22" value="<?php
+                                                                        if (isset($_POST['calc'])) {
+                                                                            echo calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']);
+                                                                        } ?>" readonly>
 
                 </label>
             </div>
         </form>
     </div>
+
     <div class="text">
         <h2>FRAGEN ZUM HYPOTHEKENRECHNER UND TRAGBARKEIT</h2>
 
@@ -126,12 +131,14 @@ and open the template in the editor.
                 Im Gegensatz zur 1. Hypothek muss sie innert maximal 15 Jahren abbezahlt werden.
             </p>
         </div>
+
         <button type="button" class="collapsible">Wie sichere ich die langfristige Tragbarkeit meiner Hypothek, wenn ein Unglücksfall eintreten sollte?</button>
         <div class="content">
             <p>Die TKB bietet Ihnen in Kooperation mit Swiss Life geeignete Versicherungslösungen unkompliziert und zu fairen Konditionen an: Die Kollektiv-Versicherung für Wohneigentümer garantiert Ihnen die passende finanzielle Absicherung bei einem Todesfall. Und mit den Einzelleben-Versicherungen können wir für Sie und Ihre Familie individuelle Versicherungslösungen realisieren.
                 So steht Ihr Eigenheim auf einem sicheren Fundament – was immer auch kommt.</p>
         </div>
     </div>
+
     <?php
     function calcBelehnung($kaufpreis, $ek)
     {
@@ -212,24 +219,12 @@ and open the template in the editor.
         echo number_format($gesammt);
     }
     ?>
+    <div id="demo"></div>
 
 </body>
 
-<script>
-    var coll = document.getElementsByClassName("collapsible");
-    var i;
+<script src="js/script.js"></script>
+<script src="Library/jquery-3.5.1.js"></script>
 
-    for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-            if (content.style.display === "block") {
-                content.style.display = "none";
-            } else {
-                content.style.display = "block";
-            }
-        });
-    }
-</script>
 
 </html>
