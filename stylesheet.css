@@ -56,11 +56,12 @@ input {
 }
 
 .text {
-    width: 50%;
+    width: 75%;
     margin: auto;
     bottom: 0;
     margin-top: 35%;
     height: 100vh;
+    text-justify: auto;
 }
 
 .collapsible {

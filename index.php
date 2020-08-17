@@ -148,9 +148,9 @@ and open the template in the editor.
         }
 
         if ($check) {
-            echo (round($hypo)) . "% Belehnung Ausreichend";
+            echo (round($hypo)) . "% | Belehnung Ausreichend";
         } else {
-            echo (round($hypo)) . "% Belehung zu Hoch";
+            echo (round($hypo)) . "% | Belehung zu Hoch";
         }
     }
     function calcZins($kaufpreis, $ek)
@@ -177,12 +177,12 @@ and open the template in the editor.
             if ($res > 100) {
                 $res = 100;
             }
-            echo number_format($res) . " % Tragbarkeit nicht gegeben";
+            echo number_format($res) . " % | Tragbarkeit nicht gegeben";
         } else {
             if ($res < 0) {
                 $res = 0;
             }
-            echo number_format($res) . " % Tragbarkeit gegeben";
+            echo number_format($res) . " % | Tragbarkeit gegeben";
         }
     }
 
