@@ -86,7 +86,7 @@ input {
 
 .active,
 .collapsible:hover {
-    background-color: peru;
+    background-color: lightgray;
 }
 
 .active::after {
