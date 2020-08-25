@@ -85,7 +85,7 @@ and open the template in the editor.
 
                 </label>
                 <label>
-                    <h3>Monatliche Gesammtkosten</h3>
+                    <h3>Monatliche Gesamtkosten</h3>
                     <input type="text" name="Result" value="<?php
                                                             if (isset($_POST['calc'])) {
                                                                 echo calcMonatlichegesammtkosten($_POST['Kaufpreis'], $_POST['Ek']) . " CHF";
