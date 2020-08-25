@@ -11,19 +11,19 @@ and open the template in the editor.
     <title>Hypothekenrechner – Liebenfelser Immobilien AG</title>
     <link href="stylesheet.css" rel="stylesheet" type="text/css" />
 </head>
+<nav>
+<img src="Pictures\logo.svg" >
+
+</nav>
 <header>
     <h1>Modellrechnung</h1>
 </header>
 
 <body>
     <div class="upper">
+       
         <form action="index.php" method="POST" id="form">
             <div class="input">
-                <label>
-                    <h3>Kaufpreis/Total Investition</h3>
-                    <input type="number" name="Kaufpreis" value="<?php echo $_POST['Kaufpreis'] ?>" />
-                </label>
-
                 <label>
                     <h3>Eigenkapital</h3>
                     <input type="number" name="Ek" value="<?php echo $_POST['Ek'] ?>" />
@@ -34,8 +34,11 @@ and open the template in the editor.
                     <input type="number" name="Jahreseinkommen" value="<?php echo $_POST['Jahreseinkommen'] ?>" />
                 </label>
 
+                <label>
+                    <h3>Kaufpreis/Total Investition</h3>
+                    <input type="number" name="Kaufpreis" value="<?php echo $_POST['Kaufpreis'] ?>" />
+                </label>
                 <input type="submit" name="calc" value="Berechnen" id="b1">
-
             </div>
 
 
@@ -49,7 +52,14 @@ and open the template in the editor.
 
                 </label>
                 <label>
-                    <h3>Hypothekarzinsen</h3>
+                    <h3>Belehnungsgrad</h3>
+                    <input type="Text" name="Result" id="b22" value="<?php
+                                                                        if (isset($_POST['calc'])) {
+                                                                            echo calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']);
+                                                                        } ?>" readonly>
+                </label>
+                <label>
+                    <h3>Hypothekarzinsen j.</h3>
                     <input type="text" name="Result" value="<?php
                                                             if (isset($_POST['calc'])) {
                                                                 $zins = calcZins($_POST['Kaufpreis'], $_POST['Ek']);
@@ -59,17 +69,17 @@ and open the template in the editor.
 
                 </label>
                 <label>
-                    <h3>Armotisation</h3>
+                    <h3>Amortisation j.</h3>
                     <input type="text" name="Result" value="<?php
                                                             if (isset($_POST['calc'])) {
                                                                 echo calcAmotisation($_POST['Kaufpreis'], $_POST['Ek']) . " CHF";
                                                             } ?>" readonly>
                 </label>
                 <label>
-                    <h3>Unterhalts- und Nebenkosten</h3>
+                    <h3>Unterhalts- und Nebenkosten j.</h3>
                     <input type="text" name="Result" value="<?php
                                                             if (isset($_POST['calc'])) {
-                                                                $nebenkosten = $_POST['Kaufpreis'] * 0.01;
+                                                                $nebenkosten = $_POST['Kaufpreis'] * 0.007;
                                                                 echo number_format($nebenkosten) . " CHF";
                                                             } ?>" readonly>
 
@@ -82,14 +92,7 @@ and open the template in the editor.
                                                             } ?>" readonly>
 
                 </label>
-                <label>
-                    <h3>Belehnung</h3>
-                    <input type="Text" name="Result" id="b22" value="<?php
-                                                                        if (isset($_POST['calc'])) {
-                                                                            echo calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']);
-                                                                        } ?>" readonly>
 
-                </label>
             </div>
         </form>
     </div>
@@ -173,10 +176,10 @@ and open the template in the editor.
     function calcTragbarkeit($kaufpreis, $ek, $einkommen)
     {
         $hypo = 100 - 100 / $kaufpreis * $ek;
-        $amotisationsbetrag = (($kaufpreis - $ek) * ((100 - $hypo) / 100)) / 15;
+        $amortisationsbetrag = (($kaufpreis - $ek) * ((100 - $hypo) / 100)) / 15;
         $zins =  ($kaufpreis - $ek) * 0.05;
         $unterhaltskosten = $kaufpreis * 0.01;
-        $gesammt = ($zins + $amotisationsbetrag + $unterhaltskosten) / 12;
+        $gesammt = ($zins + $amortisationsbetrag + $unterhaltskosten) / 12;
 
         $monatlicheseinkommen = $einkommen / 12;
         $res = (100 / $monatlicheseinkommen) * $gesammt;
@@ -195,28 +198,47 @@ and open the template in the editor.
 
     function calcAmotisation($kaufpreis, $ek)
     {
+
         $hypo = 100 - 100 / $kaufpreis * $ek;
-        $amotisationsbetrag = (($kaufpreis - $ek) * ((100 - $hypo) / 100)) / 15;
-        if ($amotisationsbetrag < 0) {
-            $amotisationsbetrag = 0;
+        if ($hypo < 0) {
+            $hypo = 0;
         }
-        echo number_format($amotisationsbetrag);
+        if ($hypo < 66) {
+            $amortisationsbetrag = 0;
+        } else {
+
+            $amortisationsbetrag = (($kaufpreis - $ek) * ((100 - $hypo) / 100)) / 15;
+        }
+
+        if ($amortisationsbetrag < 0) {
+            $amortisationsbetrag = 0;
+        }
+        if ($hypo < 66) {
+            $amortisationsbetrag = 0;
+        }
+        return $amortisationsbetrag;
     }
     function calcMonatlichegesammtkosten($kaufpreis, $ek)
     {
         $hypo = 100 - 100 / $kaufpreis * $ek;
-        $amotisationsbetrag = (($kaufpreis - $ek) * ((100 - $hypo) / 100)) / 15;
+        //$amortisationsbetrag = (($kaufpreis - $ek) * ((100 - $hypo) / 100)) / 15;
+        $amortisationsbetrag = calcAmotisation($_POST['Kaufpreis'], $_POST['Ek']); // Only works if numberFormat isn't in function
         $zins =  ($kaufpreis - $ek) * 0.05;
         $unterhaltskosten = $kaufpreis * 0.01;
         if ($zins < 0) {
             $zins = 0;
         }
-        if ($amotisationsbetrag < 0) {
-            $amotisationsbetrag = 0;
+        if ($amortisationsbetrag < 0) {
+            $amortisationsbetrag = 0;
         }
 
-        $gesammt = ($zins + $amotisationsbetrag + $unterhaltskosten) / 12;
+        $gesammt = ($zins + $amortisationsbetrag + $unterhaltskosten) / 12;
         echo number_format($gesammt);
+    }
+
+    function autocompleteKaufpreis ($ek){
+        $kaufpreis = $ek*5;
+        return $kaufpreis;
     }
     ?>
     <div id="demo"></div>
