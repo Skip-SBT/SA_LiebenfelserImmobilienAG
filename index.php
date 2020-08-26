@@ -1,46 +1,52 @@
 <!DOCTYPE html>
 <!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
+    To change this license header, choose License Headers in Project Properties.
+    To change this template file, choose Tools | Templates
+    and open the template in the editor.
 -->
 <html>
-
-<head>
-    <meta charset="UTF-8">
-    <title>Hypothekenrechner – Liebenfelser Immobilien AG</title>
-    <link href="stylesheet.css" rel="stylesheet" type="text/css" />
-</head>
-<nav>
-<img src="Pictures\logo.svg" >
-
-</nav>
-<header>
-    <h1>Modellrechnung</h1>
-</header>
-
-<body>
-    <div class="upper">
-       
+    
+    <head>
+        <meta charset="UTF-8">
+        <title>Hypothekenrechner – Liebenfelser Immobilien AG</title>
+        <link href="stylesheet.css" rel="stylesheet" type="text/css" />
+    </head>
+    <nav>
+        <img src="Pictures\logo.svg">
+        
+    </nav>
+    <header>
+        <h1>Modellrechnung</h1>
+    </header>
+    
+    <body onLoad="window.location ='#form'">
+        <div class="upper">
+            
         <form action="index.php" method="POST" id="form">
             <div class="input">
                 <label>
                     <h3>Eigenkapital</h3>
                     <input type="number" name="Ek" value="<?php echo $_POST['Ek'] ?>" />
                 </label>
-
+                
                 <label>
                     <h3>Jahreseinkommen</h3>
                     <input type="number" name="Jahreseinkommen" value="<?php echo $_POST['Jahreseinkommen'] ?>" />
                 </label>
-
+                
                 <label>
                     <h3>Kaufpreis/Total Investition</h3>
                     <input type="number" name="Kaufpreis" value="<?php echo $_POST['Kaufpreis'] ?>" />
                 </label>
                 <input type="submit" name="calc" value="Berechnen" id="b1">
-            </div>
+            </form>
 
+                <button type='button' onclick="draw_square();return true;">Red Square</button> 
+
+            </div>
+            <div class="VChart">
+                <canvas id="VBar">
+            </div>
 
             <div class="results">
                 <label>
@@ -53,7 +59,7 @@ and open the template in the editor.
                 </label>
                 <label>
                     <h3>Belehnungsgrad</h3>
-                    <input type="Text" name="Result" id="b22" value="<?php
+                    <input type="Text" id="bel" name="Result" id="b22" value="<?php
                                                                         if (isset($_POST['calc'])) {
                                                                             echo calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']);
                                                                         } ?>" readonly>
@@ -94,7 +100,6 @@ and open the template in the editor.
                 </label>
 
             </div>
-        </form>
     </div>
 
     <div class="text">
@@ -158,9 +163,9 @@ and open the template in the editor.
         }
 
         if ($check) {
-            echo (round($hypo)) . "% | Belehnung Ausreichend";
+            echo (round($hypo)) ;
         } else {
-            echo (round($hypo)) . "% | Belehung zu Hoch";
+            echo (round($hypo)) ;
         }
     }
     function calcZins($kaufpreis, $ek)
@@ -221,7 +226,6 @@ and open the template in the editor.
     function calcMonatlichegesammtkosten($kaufpreis, $ek)
     {
         $hypo = 100 - 100 / $kaufpreis * $ek;
-        //$amortisationsbetrag = (($kaufpreis - $ek) * ((100 - $hypo) / 100)) / 15;
         $amortisationsbetrag = calcAmotisation($_POST['Kaufpreis'], $_POST['Ek']); // Only works if numberFormat isn't in function
         $zins =  ($kaufpreis - $ek) * 0.05;
         $unterhaltskosten = $kaufpreis * 0.01;
@@ -236,8 +240,9 @@ and open the template in the editor.
         echo number_format($gesammt);
     }
 
-    function autocompleteKaufpreis ($ek){
-        $kaufpreis = $ek*5;
+    function autocompleteKaufpreis($ek)
+    {
+        $kaufpreis = $ek * 5;
         return $kaufpreis;
     }
     ?>
@@ -245,8 +250,8 @@ and open the template in the editor.
 
 </body>
 
-<script src="js/script.js"></script>
 <script src="Library/jquery-3.5.1.js"></script>
-
+<script src="js/script.js"></script>
+<script src="js/chart.js"></script>
 
 </html>
