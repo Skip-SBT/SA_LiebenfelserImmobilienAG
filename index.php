@@ -72,7 +72,7 @@ and open the template in the editor.
                     <h3>Amortisation j.</h3>
                     <input type="text" name="Result" value="<?php
                                                             if (isset($_POST['calc'])) {
-                                                                echo calcAmotisation($_POST['Kaufpreis'], $_POST['Ek']) . " CHF";
+                                                                echo number_format(calcAmotisation($_POST['Kaufpreis'], $_POST['Ek'])) . " CHF";
                                                             } ?>" readonly>
                 </label>
                 <label>
