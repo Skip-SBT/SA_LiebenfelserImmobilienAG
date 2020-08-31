@@ -21,9 +21,10 @@
 
 <body onLoad="window.location ='#form'">
     <div class="upper">
-
         <form action="index.php" method="POST" id="form">
+        
             <div class="input">
+           
                 <label>
                     <h3>Eigenkapital</h3>
                     <div class="btn btn-primary tooltip"><img src="Pictures\info1.png">
@@ -63,11 +64,10 @@
                 </label>
                 <input type="submit" name="calc" value="Berechnen" id="b1">
         </form>
-
+       
     </div>
     <h2>Ihre Belehnung</h2>
     <div class="VChart">
-
         <svg width="30vw" height="100%" viewBox="0 0 670 444" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
             <g id="Artboard1" transform="matrix(1.64186,0,0,1,0,0)">
                 <rect x="0" y="0" width="408.073" height="443.458" style="fill:none;" />
@@ -88,11 +88,10 @@
                     </g>
                     <g id="red-lb" transform="matrix(0.609065,0,0,1,-214.823,43.9484)">
                         <text x="415.794px" y="<?php echo (60.839 * 2 / 100 * (100 - calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']))) ?>" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:33.433px;"><?php if (100 - calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']) >= 19) {
-                                                                                                                                                                                                                            echo (100 - calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']))."%";
-                                                                                                                                                                                                                        }else{
-                                                                                                                                                                                                                            
-                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                        ?></text>
+                                                                                                                                                                                                                        echo (100 - calcBelehnung($_POST['Kaufpreis'], $_POST['Ek'])) . "%";
+                                                                                                                                                                                                                    } else {
+                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                    ?></text>
                     </g>
                     <g id="red-desc" transform="matrix(0.609065,0,0,1,-129.644,50.7551)">
                         <text x="415.794px" y="70.839px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:33.433px;">Eigenmittel: </text>
@@ -121,19 +120,46 @@
 
     <div class="results">
         <label>
-            <h3>Tragbarkeit</h3>
+            <h2>Tragbarkeit</h2>
             <div class="btn btn-primary tooltip"><img src="Pictures\info1.png">
                 <div class="right">
                     <p>Die Gesamtkosten der Liegenschaft sollten nicht mehr als 33% des Bruttoeinkommens betragen, damit die Immobilie langfristig für Sie tragbar ist.</p>
                     <i></i>
                 </div>
             </div>
-            <input type="text" name="Result" value="<?php
+        </label>
+        <label>
+        <div>
+            <h3><?php
+                if (isset($_POST['calc'])) {
+                    echo calcTragbarkeit($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
+                } ?></h3>
+    
+        <svg xmlns="http://www.w3.org/2000/svg" width="380" height="100" viewBox="0 0 2096 143">
+            <defs>
+                <style>
+                    .cls-1 {
+                        fill: #b4b4b4;
+                        stroke: #b4b4b4;
+                        stroke-width: 2px;
+                    }
+
+                    .cls-2 {
+                        fill: #3aaa35;
+                    }
+                </style>
+            </defs>
+            <rect id="Background" class="cls-1" width="2096" height="143" rx="70" ry="70" />
+            <path id="Bar" class="cls-2" d="M70,0H1996a0,0,0,0,1,0,0V143a0,0,0,0,1,0,0H70A70,70,0,0,1,0,73V70A70,70,0,0,1,70,0Z" />
+        </svg>
+        </div>
+        </label>
+        <!--<input type="text" name="Result" value="<?php
                                                     if (isset($_POST['calc'])) {
                                                         echo calcTragbarkeit($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
-                                                    } ?>" readonly>
+                                                    } ?>" readonly> -->
 
-        </label>
+
 
 
         <label>
