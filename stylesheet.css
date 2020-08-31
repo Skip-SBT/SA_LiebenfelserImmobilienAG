@@ -1,260 +1,280 @@
-    /* 
+        /* 
 Filename       : stylesheet
     Created on : 05.07.2020, 22:48:58
     Author     : Maximilian Hubrath
 */
-    /* Chrome, Safari, Edge, Opera */
-    
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-    /* Firefox */
-    
-    input[type=number] {
-        -moz-appearance: textfield;
-    }
-    
-    * {
-        margin: 0;
-        font-family: 'Raleway', sans-serif;
-        font-weight: 400;
-        color: #383434;
-        letter-spacing: 0.23px;
-        line-height: 27px;
-    }
-    
-    nav {
-        height: 11vh;
-        background-color: #c7bb9f;
-    }
-    
-    nav img {
-        float: right;
-        height: 7em;
-        padding-right: 2%;
-    }
-    
-    header {
-        padding-top: 5%;
-        font-family: 'Raleway', serif;
-        font-size: 1.5em;
-        background-image: url("Pictures/placeholder3.jpg");
-        background-repeat: no-repeat;
-        height: 80vh;
-        width: 100%;
-        background-size: cover;
-        opacity: 1;
-    }
-    
-    header h1 {
-        color: white;
-        opacity: 1;
-        padding-left: 33%;
-        padding-top: 65vh;
-        font-size: 90px;
-    }
-    
-    .upper {
-        height: 100vh;
-    }
-    
-    body {
-        background-color: #f7f4ed;
-    }
-    
-    form {
-        padding-top: 10%;
-        position: relative;
-    }
-    
-    #bel {
-        visibility: hidden;
-    }
-    
-    label {
-        margin-bottom: 60px;
-        width: 120%;
-    }
-    
-    .input {
-        float: left;
-        padding-left: 8%;
-        width: 20vw;
-    }
-    
-    .results {
-        float: right;
-        padding-right: 8%;
-        width: 20%;
-    }
-    
-    input {
-        width: 200px;
-    }
-    
-    .text {
-        width: 75%;
-        margin: auto;
-        bottom: 0;
-        margin-top: 5%;
-        margin-bottom: 5%;
-        text-justify: auto;
-    }
-    
-    .collapsible {
-        background-color: #c7bb9f;
-        color: white;
-        cursor: pointer;
-        padding: 18px;
-        width: 100%;
-        border: none;
-        text-align: left;
-        outline: none;
-        font-size: 15px;
-    }
-    
-    .collapsible:after {
-        content: '\002B';
-        color: #777;
-        font-weight: bold;
-        float: right;
-        margin-left: 5px;
-    }
-    
-    .active,
-    .collapsible:hover {
-        background-color: lightgray;
-    }
-    
-    .active::after {
-        content: "\2212";
-    }
-    
-    .content {
-        padding: 0 18px;
-        display: none;
-        overflow: hidden;
-        background-color: #f7f4ed;
-    }
-    
-    p {
-        font-weight: 400;
-        font-size: 16px;
-        color: #383434;
-        letter-spacing: 0.23px;
-        line-height: 27px;
-    }
-    
-    input[type=submit] {
-        background-color: #4CAF50;
-        border: none;
-        color: white;
-        padding: 16px 32px;
-        text-decoration: none;
-        margin: 4px 2px;
-        cursor: pointer;
-    }
-    
-    input[type=text],
-    input[type=number],
-    select {
-        width: 100%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-        font-size: 1.1em;
-        text-justify: auto;
-    }
-    
-    .VChart {
-        width: 100%;
-        height: 55hv;
-        text-align: center;
-        margin-top: 0;
-    }
-    
-    #VBar {
-        width: 5vw;
-        margin-left: 20%;
-        height: 55vh;
-        border: 2px solid grey;
-        display: block;
-        float: left;
-        margin-top: 1%;
-        border-radius: 15px;
-        font-stretch: expanded;
-    }
-    
-    .input h3 {
-        float: left;
-    }
-    
-    .results h3 {
-        float: left;
-    }
-    
-    .tooltip {
-        position: relative;
-        text-align: left;
-        float: left;
-        margin-left: 2%;
-    }
-    
-    .tooltip .right {
-        min-width: 200px;
-        max-width: 400px;
-        top: 50%;
-        left: 100%;
-        margin-left: 20px;
-        transform: translate(0, -50%);
-        padding: 10px 20px;
-        color: #444444;
-        background-color: #EEEEEE;
-        font-weight: normal;
-        font-size: 13px;
-        border-radius: 8px;
-        position: absolute;
-        z-index: 99999999;
-        box-sizing: border-box;
-        box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
-        visibility: hidden;
-        opacity: 0;
-        transition: opacity 0.8s;
-    }
-    
-    .tooltip:hover .right {
-        visibility: visible;
-        opacity: 1;
-    }
-    
-    .tooltip .right i {
-        position: absolute;
-        top: 50%;
-        right: 100%;
-        margin-top: -12px;
-        width: 12px;
-        height: 24px;
-        overflow: hidden;
-    }
-    
-    .tooltip img {
-        width: 20px;
-        opacity: .7;
-    }
-    
-    .tooltip .right i::after {
-        content: '';
-        position: absolute;
-        width: 12px;
-        height: 12px;
-        left: 0;
-        top: 50%;
-        transform: translate(50%, -50%) rotate(-45deg);
-        background-color: #EEEEEE;
-        box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
-    }
+        /* Chrome, Safari, Edge, Opera */
+        
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        /* Firefox */
+        
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+        
+        * {
+            margin: 0;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 400;
+            color: #383434;
+            letter-spacing: 0.23px;
+            line-height: 27px;
+        }
+        
+        nav {
+            height: 11vh;
+            background-color: #c7bb9f;
+        }
+        
+        nav img {
+            float: right;
+            height: 7em;
+            padding-right: 2%;
+        }
+        
+        header {
+            padding-top: 5%;
+            font-family: 'Raleway', serif;
+            font-size: 1.5em;
+            background-image: url("Pictures/placeholder3.jpg");
+            background-repeat: no-repeat;
+            height: 80vh;
+            width: 100%;
+            background-size: cover;
+            opacity: 1;
+        }
+        
+        header h1 {
+            color: white;
+            opacity: 1;
+            padding-left: 33%;
+            padding-top: 65vh;
+            font-size: 90px;
+        }
+        
+        .upper {
+            height: 100vh;
+        }
+        
+        body {
+            background-color: #f7f4ed;
+        }
+        
+        form {
+            padding-top: 8%;
+            position: relative;
+        }
+        
+        #bel {
+            visibility: hidden;
+        }
+        
+        label {
+            margin-bottom: 60px;
+            width: 120%;
+        }
+        
+        .input {
+            float: left;
+            padding-left: 8%;
+            width: 20vw;
+            padding-top: 1%;
+        }
+        
+        .results {
+            float: right;
+            padding-right: 8%;
+            width: 20vw;
+            margin-top: 0;
+        }
+        
+        input {
+            width: 200px;
+        }
+        
+        .text {
+            width: 75%;
+            margin: auto;
+            bottom: 0;
+            margin-top: 5%;
+            margin-bottom: 5%;
+            text-justify: auto;
+        }
+        
+        .collapsible {
+            background-color: #c7bb9f;
+            color: white;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+        }
+        
+        .collapsible:after {
+            content: '\002B';
+            color: #777;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+        
+        .active,
+        .collapsible:hover {
+            background-color: lightgray;
+        }
+        
+        .active::after {
+            content: "\2212";
+        }
+        
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #f7f4ed;
+        }
+        
+        p {
+            font-weight: 400;
+            font-size: 16px;
+            color: #383434;
+            letter-spacing: 0.23px;
+            line-height: 27px;
+        }
+        
+        input[type=submit] {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-decoration: none;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        
+        input[type=text],
+        input[type=number],
+        select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 1.1em;
+            text-justify: auto;
+        }
+        
+        .VChart {
+            width: 40wh;
+            height: 20hv;
+            text-align: center;
+        }
+        
+        .VChart svg {
+            float: left;
+            margin-left: 10%;
+            height: 40vh;
+            padding-top: 3%;
+        }
+        
+        h2 {
+            margin-left: 38%;
+        }
+        
+        .vl {
+            border-left: 2px solid #c7bb9f;
+            height: 500px;
+            float: left;
+            margin-top: 0;
+        }
+        
+        .input h3 {
+            float: left;
+            margin-left: 0px;
+        }
+        
+        .results h3 {
+            float: left;
+        }
+        
+        .results h2 {
+            float: left;
+            margin-left: 0px;
+            margin-bottom: 10%;
+        }
+        
+        .results svg {
+            text-align: center;
+            float: left;
+            margin-top: 0;
+        }
+        
+        .tooltip {
+            position: relative;
+            text-align: left;
+            float: left;
+            margin-left: 3%;
+        }
+        
+        .tooltip .right {
+            min-width: 200px;
+            max-width: 400px;
+            top: 50%;
+            left: 100%;
+            margin-left: 20px;
+            transform: translate(0, -50%);
+            padding: 10px 20px;
+            color: #444444;
+            background-color: #EEEEEE;
+            font-weight: normal;
+            font-size: 13px;
+            border-radius: 8px;
+            position: absolute;
+            z-index: 99999999;
+            box-sizing: border-box;
+            box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.8s;
+        }
+        
+        .tooltip:hover .right {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .tooltip .right i {
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            margin-top: -12px;
+            width: 12px;
+            height: 24px;
+            overflow: hidden;
+        }
+        
+        .tooltip img {
+            width: 20px;
+            opacity: .7;
+        }
+        
+        .tooltip .right i::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            left: 0;
+            top: 50%;
+            transform: translate(50%, -50%) rotate(-45deg);
+            background-color: #EEEEEE;
+            box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+        }
