@@ -12,22 +12,23 @@
     <link href="stylesheet.css" rel="stylesheet" type="text/css" />
 </head>
 <nav>
-    <img src="Pictures\logo.svg">
+    <img src="Pictures/logo.svg">
 
 </nav>
 <header>
+    <img src="/Pictures/placeholder3.jpg" alt="placeholder house">
     <h1>Modellrechnung</h1>
 </header>
 
-<body onLoad="window.location ='#form'">
-    <div class="upper">
-        <form action="index.php" method="POST" id="form">
+<body onLoad="window.location ='#main'">
+    <div id="main" class="main">
+        <!-- input -->
+        <div class="input">
+            <form action="index.php" method="POST" id="form">
 
-            <div class="input">
-
-                <label>
+                <div>
                     <h3>Eigenkapital</h3>
-                    <div class="btn btn-primary tooltip"><img src="Pictures\info1.png">
+                    <div class="tooltip"><img src="Pictures\info1.png">
                         <div class="right">
                             <h3>Eigenkapital</h3>
                             <p>Dolor sit amet, consectetur adipiscing elit.</p>
@@ -36,11 +37,11 @@
                     </div>
                     <input type="number" name="Ek" value="<?php echo $_POST['Ek'] ?>" />
 
-                </label>
+                </div>
 
-                <label>
+                <div>
                     <h3>Jahreseinkommen</h3>
-                    <div class="btn btn-primary tooltip"><img src="Pictures\info1.png">
+                    <div class="tooltip"><img src="Pictures\info1.png">
                         <div class="right">
                             <h3>Jahreseinkommen</h3>
                             <p>Dolor sit amet, consectetur adipiscing elit.</p>
@@ -48,11 +49,11 @@
                         </div>
                     </div>
                     <input type="number" name="Jahreseinkommen" value="<?php echo $_POST['Jahreseinkommen'] ?>" />
-                </label>
+                </div>
 
-                <label>
+                <div>
                     <h3>Kaufpreis / Total Investition</h3>
-                    <div class="btn btn-primary tooltip"><img src="Pictures\info1.png">
+                    <div class="tooltip"><img src="Pictures\info1.png">
                         <div class="right">
                             <h3>Kaufpreis/Total Investition</h3>
                             <p>Dolor sit amet, consectetur adipiscing elit.</p>
@@ -61,128 +62,124 @@
                     </div>
 
                     <input type="number" name="Kaufpreis" value="<?php echo $_POST['Kaufpreis'] ?>" />
-                </label>
+                </div>
                 <input type="submit" name="calc" value="Download" id="b1">
-        </form>
+            </form>
+        </div>
 
-    </div>
-    <h2>Ihre Belehnung: <br> 70% Ausreichend</h2>
+        <div class="chart">
+            <h2>Ihre Belehnung: <br> 70% Ausreichend</h2>
+            <canvas id="myChart" width="400" height="400"></canvas>
+        </div>
 
-    <div class="VChart">
-        <canvas id="myChart" width="400" height="400"></canvas>
-    </div>
-    <div class="vl"></div>
-
-    <div class="results">
-        <label>
-            <h2>Tragbarkeit</h2>
-            <div class="btn btn-primary tooltip"><img src="Pictures\info1.png">
-                <div class="right">
-                    <p>Die Gesamtkosten der Liegenschaft sollten nicht mehr als 33% des Bruttoeinkommens betragen, damit die Immobilie langfristig für Sie tragbar ist.</p>
-                    <i></i>
-                </div>
-            </div>
-        </label>
-        <label>
+        <div class="results">
             <div>
-                <h3><?php
-                    if (isset($_POST['calc'])) {
-                        echo calcTragbarkeit($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
-                    } ?></h3>
-
-                <svg xmlns="http://www.w3.org/2000/svg" width="380" height="100" viewBox="0 0 2096 143">
-                    <defs>
-                        <style>
-                            .cls-1 {
-                                fill: #b4b4b4;
-                                stroke: #b4b4b4;
-                                stroke-width: 2px;
-                            }
-
-                            .cls-2 {
-                                fill: #3aaa35;
-                            }
-                        </style>
-                    </defs>
-                    <rect id="Background" class="cls-1" width="2096" height="143" rx="70" ry="70" />
-                    <path id="Bar" class="cls-2" d="M70,0H1996a0,0,0,0,1,0,0V143a0,0,0,0,1,0,0H70A70,70,0,0,1,0,73V70A70,70,0,0,1,70,0Z" />
-                </svg>
-            </div>
-        </label>
-        <!--<input type="text" name="Result" value="<?php
-                                                    if (isset($_POST['calc'])) {
-                                                        echo calcTragbarkeit($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
-                                                    } ?>" readonly> -->
-
-
-
-
-        <label>
-            <h3>Hypothekarzinsen j.</h3>
-            <div class="btn btn-primary tooltip"><img src="Pictures\info1.png">
-                <div class="right">
-                    <p>Für die Berechnung der langfristigen Hypothekarzinsen wird mit einem kalkulatorischen Zinssatz von 5.00% gerechnet.</p>
-                    <i></i>
+                <h2>Tragbarkeit</h2>
+                <div class="tooltip"><img src="Pictures\info1.png">
+                    <div class="right">
+                        <p>Die Gesamtkosten der Liegenschaft sollten nicht mehr als 33% des Bruttoeinkommens betragen, damit die Immobilie langfristig für Sie tragbar ist.</p>
+                        <i></i>
+                    </div>
                 </div>
             </div>
-            <input type="text" name="Result" value="<?php
-                                                    if (isset($_POST['calc'])) {
-                                                        $zins = calcZins($_POST['Kaufpreis'], $_POST['Ek']);
-                                                        echo $zins . " CHF";
-                                                    } ?>" readonly>
+            <div>
+                    <h3><?php
+                        if (isset($_POST['calc'])) {
+                            echo calcTragbarkeit($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
+                        } ?></h3>
 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="380" height="100" viewBox="0 0 2096 143">
+                        <defs>
+                            <style>
+                                .cls-1 {
+                                    fill: #b4b4b4;
+                                    stroke: #b4b4b4;
+                                    stroke-width: 2px;
+                                }
 
-        </label>
-        <label>
-            <h3>Amortisation j.</h3>
-            <div class="btn btn-primary tooltip"><img src="Pictures\info1.png">
-                <div class="right">
-                    <p>II. Hypotheken sind innert 15 Jahren zu amortisieren.</p>
-                    <i></i>
-                </div>
+                                .cls-2 {
+                                    fill: #3aaa35;
+                                }
+                            </style>
+                        </defs>
+                        <rect id="Background" class="cls-1" width="2096" height="143" rx="70" ry="70" />
+                        <path id="Bar" class="cls-2" d="M70,0H1996a0,0,0,0,1,0,0V143a0,0,0,0,1,0,0H70A70,70,0,0,1,0,73V70A70,70,0,0,1,70,0Z" />
+                    </svg>
             </div>
-            <input type="text" name="Result" value="<?php
-                                                    if (isset($_POST['calc'])) {
-                                                        echo number_format(calcAmotisation($_POST['Kaufpreis'], $_POST['Ek'])) . " CHF";
-                                                    } ?>" readonly>
-        </label>
-        <label>
-            <h3>Unterhaltskosten j.</h3>
-            <div class="btn btn-primary tooltip"><img src="Pictures\info1.png">
-                <div class="right">
-                    <p>Für die Berechnung der jährlichen Nebenkosten wird mit 0.7% vom Liegenschaftswert gerechnet.</p>
-                    <i></i>
+            <!--<input type="text" name="Result" value="<?php
+                                                        if (isset($_POST['calc'])) {
+                                                            echo calcTragbarkeit($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
+                                                        } ?>" readonly> -->
+
+
+
+
+            <div>
+                <h3>Hypothekarzinsen j.</h3>
+                <div class="tooltip"><img src="Pictures\info1.png">
+                    <div class="right">
+                        <p>Für die Berechnung der langfristigen Hypothekarzinsen wird mit einem kalkulatorischen Zinssatz von 5.00% gerechnet.</p>
+                        <i></i>
+                    </div>
                 </div>
-            </div>
-            <input type="text" name="Result" value="<?php
-                                                    if (isset($_POST['calc'])) {
-                                                        $nebenkosten = $_POST['Kaufpreis'] * 0.007;
-                                                        echo number_format($nebenkosten) . " CHF";
-                                                    } ?>" readonly>
+                <input type="text" name="Result" value="<?php
+                                                        if (isset($_POST['calc'])) {
+                                                            $zins = calcZins($_POST['Kaufpreis'], $_POST['Ek']);
+                                                            echo $zins . " CHF";
+                                                        } ?>" readonly>
 
-        </label>
-        <label>
-            <h3>Monatliche Gesamtkosten</h3>
-            <div class="btn btn-primary tooltip"><img src="Pictures\info1.png">
-                <div class="right">
-                    <p>Durchschnittliche Gesamtkosten, welche für die Liegenschaften pro Monat langfristig anfallen.</p>
-                    <i></i>
+
+            </div>
+            <div>
+                <h3>Amortisation j.</h3>
+                <div class="tooltip"><img src="Pictures\info1.png">
+                    <div class="right">
+                        <p>II. Hypotheken sind innert 15 Jahren zu amortisieren.</p>
+                        <i></i>
+                    </div>
                 </div>
+                <input type="text" name="Result" value="<?php
+                                                        if (isset($_POST['calc'])) {
+                                                            echo number_format(calcAmotisation($_POST['Kaufpreis'], $_POST['Ek'])) . " CHF";
+                                                        } ?>" readonly>
             </div>
-            <input type="text" name="Result" value="<?php
-                                                    if (isset($_POST['calc'])) {
-                                                        echo calcMonatlichegesammtkosten($_POST['Kaufpreis'], $_POST['Ek']) . " CHF";
-                                                    } ?>" readonly>
+            <div>
+                <h3>Unterhaltskosten j.</h3>
+                <div class="tooltip"><img src="Pictures\info1.png">
+                    <div class="right">
+                        <p>Für die Berechnung der jährlichen Nebenkosten wird mit 0.7% vom Liegenschaftswert gerechnet.</p>
+                        <i></i>
+                    </div>
+                </div>
+                <input type="text" name="Result" value="<?php
+                                                        if (isset($_POST['calc'])) {
+                                                            $nebenkosten = $_POST['Kaufpreis'] * 0.007;
+                                                            echo number_format($nebenkosten) . " CHF";
+                                                        } ?>" readonly>
 
-        </label>
+            </div>
+            <div>
+                <h3>Monatliche Gesamtkosten</h3>
+                <div class="tooltip"><img src="Pictures\info1.png">
+                    <div class="right">
+                        <p>Durchschnittliche Gesamtkosten, welche für die Liegenschaften pro Monat langfristig anfallen.</p>
+                        <i></i>
+                    </div>
+                </div>
+                <input type="text" name="Result" value="<?php
+                                                        if (isset($_POST['calc'])) {
+                                                            echo calcMonatlichegesammtkosten($_POST['Kaufpreis'], $_POST['Ek']) . " CHF";
+                                                        } ?>" readonly>
 
-        <!-- Belehnungsgrad</h3> -->
-        <input type="Text" type="hidden" id="bel" name="Result" id="b22" value="<?php
-                                                                                if (isset($_POST['calc'])) {
-                                                                                    echo calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']);
-                                                                                } ?>" readonly>
+            </div>
 
-    </div>
+            <!-- Belehnungsgrad</h3> -->
+            <input type="Text" type="hidden" id="bel" name="Result" id="b22" value="<?php
+                                                                                    if (isset($_POST['calc'])) {
+                                                                                        echo calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']);
+                                                                                    } ?>" readonly>
+
+        </div>
     </div>
 
     <div class="text">

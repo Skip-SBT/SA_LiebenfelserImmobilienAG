@@ -1,8 +1,19 @@
-        /* 
+        /*
 Filename       : stylesheet
     Created on : 05.07.2020, 22:48:58
     Author     : Maximilian Hubrath
 */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 400;
+            color: #383434;
+            letter-spacing: 0.23px;
+            /* line-height: 27px; */
+        }
+        /*--- input styles ---*/
         /* Chrome, Safari, Edge, Opera */
         
         input::-webkit-outer-spin-button,
@@ -15,15 +26,29 @@ Filename       : stylesheet
         input[type=number] {
             -moz-appearance: textfield;
         }
+        /* --- header --- */
         
-        * {
-            margin: 0;
-            font-family: 'Raleway', sans-serif;
-            font-weight: 400;
-            color: #383434;
-            letter-spacing: 0.23px;
-            line-height: 27px;
+        header {
+            /* background-image: url("Pictures/placeholder3.jpg");
+            background-size: cover;
+            background-repeat: no-repeat; */
+            width: 100%;
+            position: relative;
         }
+        
+        header img {
+            width: 100%;
+        }
+        
+        header h1 {
+            color: white;
+            font-family: 'Raleway', serif;
+            font-size: 90px;
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+        }
+        /* --- nav --- */
         
         nav {
             height: 11vh;
@@ -35,37 +60,30 @@ Filename       : stylesheet
             height: 7em;
             padding-right: 2%;
         }
-        
-        header {
-            padding-top: 5%;
-            font-family: 'Raleway', serif;
-            font-size: 1.5em;
-            background-image: url("Pictures/placeholder3.jpg");
-            background-repeat: no-repeat;
-            height: 80vh;
-            width: 100%;
-            background-size: cover;
-            opacity: 1;
-        }
-        
-        header h1 {
-            color: white;
-            opacity: 1;
-            padding-left: 33%;
-            padding-top: 65vh;
-            font-size: 90px;
-        }
-        
-        .upper {
-            height: 100vh;
-        }
+        /* --- body --- */
         
         body {
             background-color: #f7f4ed;
         }
+        /* --- main --- */
+        
+        .main {
+            height: 100vh;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            padding: 30px;
+        }
+        
+        .input {
+            min-width: 260px;
+        }
+        
+        .results {
+            min-width: 260px;
+        }
         
         form {
-            padding-top: 8%;
             position: relative;
         }
         
@@ -73,27 +91,8 @@ Filename       : stylesheet
             visibility: hidden;
         }
         
-        label {
-            margin-bottom: 60px;
-            width: 120%;
-        }
-        
-        .input {
-            float: left;
-            padding-left: 8%;
-            width: 20vw;
-            padding-top: 1%;
-        }
-        
-        .results {
-            float: right;
-            padding-right: 8%;
-            width: 20vw;
-            margin-top: 0;
-        }
-        
         input {
-            width: 200px;
+            width: 100%;
         }
         
         .text {
@@ -173,47 +172,41 @@ Filename       : stylesheet
             text-justify: auto;
         }
         
-        .VChart {
+        h2 {
             text-align: center;
-            display: inline;
         }
-        
+        /* .VChart {
+            width: 40wh;
+            height: 20hv;
+            text-align: center;
+        }
+
         .VChart svg {
             float: left;
             margin-left: 10%;
             height: 40vh;
             padding-top: 3%;
         }
-        
-        h2 {
-            margin-left: 38%;
-        }
-        
+
         .vl {
             border-left: 2px solid #c7bb9f;
             height: 500px;
             float: left;
             margin-top: 0;
-        }
+*/
         
-        .input h3 {
-            float: left;
-            margin-left: 0px;
-        }
-        
+        .input h3,
         .results h3 {
             float: left;
         }
         
         .results h2 {
             float: left;
-            margin-left: 0px;
-            margin-bottom: 10%;
         }
         
         .results svg {
-            text-align: center;
             float: left;
+            text-align: center;
             margin-top: 0;
         }
         
