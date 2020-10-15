@@ -22,9 +22,9 @@
 <body onLoad="window.location ='#form'">
     <div class="upper">
         <form action="index.php" method="POST" id="form">
-        
+
             <div class="input">
-           
+
                 <label>
                     <h3>Eigenkapital</h3>
                     <div class="btn btn-primary tooltip"><img src="Pictures\info1.png">
@@ -62,59 +62,14 @@
 
                     <input type="number" name="Kaufpreis" value="<?php echo $_POST['Kaufpreis'] ?>" />
                 </label>
-                <input type="submit" name="calc" value="Berechnen" id="b1">
+                <input type="submit" name="calc" value="Download" id="b1">
         </form>
-       
-    </div>
-    <h2>Ihre Belehnung</h2>
-    <div class="VChart">
-        <svg width="30vw" height="100%" viewBox="0 0 670 444" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
-            <g id="Artboard1" transform="matrix(1.64186,0,0,1,0,0)">
-                <rect x="0" y="0" width="408.073" height="443.458" style="fill:none;" />
-                <clipPath id="_clip1">
-                    <rect x="0" y="0" width="408.073" height="443.458" />
-                </clipPath>
-                <g clip-path="url(#_clip1)">
-                    <g id="red-rect" transform="matrix(0.609065,0,0,1,-194.649,-103.045)">
-                        <path d="M512,124.191C512,112.52 502.525,103.045 490.854,103.045L340.733,103.045C329.062,103.045 319.587,112.52 319.587,124.191L319.587,525.357C319.587,537.028 329.062,546.503 340.733,546.503L490.854,546.503C502.525,546.503 512,537.028 512,525.357L512,124.191Z" style="fill:rgb(255,0,0);" />
-                        <clipPath id="_clip2">
-                            <path d="M512,124.191C512,112.52 502.525,103.045 490.854,103.045L340.733,103.045C329.062,103.045 319.587,112.52 319.587,124.191L319.587,525.357C319.587,537.028 329.062,546.503 340.733,546.503L490.854,546.503C502.525,546.503 512,537.028 512,525.357L512,124.191Z" />
-                        </clipPath>
-                        <g clip-path="url(#_clip2)">
-                            <g id="green-rect" transform="matrix(1,0,0,0.899497,0,54.9249)">
-                                <rect x="319.587" y="<?php echo (600.503 / 100 * (100 - calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']))) ?>" width="192.413" height="600.503 " style="fill:rgb(4,206,0);" />
-                            </g>
-                        </g>
-                    </g>
-                    <g id="red-lb" transform="matrix(0.609065,0,0,1,-214.823,43.9484)">
-                        <text x="415.794px" y="<?php echo (60.839 * 2 / 100 * (100 - calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']))) ?>" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:33.433px;"><?php if (100 - calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']) >= 19) {
-                                                                                                                                                                                                                        echo (100 - calcBelehnung($_POST['Kaufpreis'], $_POST['Ek'])) . "%";
-                                                                                                                                                                                                                    } else {
-                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                    ?></text>
-                    </g>
-                    <g id="red-desc" transform="matrix(0.609065,0,0,1,-129.644,50.7551)">
-                        <text x="415.794px" y="70.839px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:33.433px;">Eigenmittel: </text>
-                    </g>
-                    <g id="green-desc" transform="matrix(0.609065,0,0,1,-125.541,273.484)">
-                        <text x="415.794px" y="70.839px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:33.433px;">Hypotheke: </text>
-                    </g>
-                    <g id="green-lb" transform="matrix(0.609065,0,0,1,-214.823,273.484)">
-                        <text x="415.794px" y="<?php echo (77.839 * 2 / 100 * (100 - calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']))) ?>" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:33.433px;"><?php echo (calcBelehnung($_POST['Kaufpreis'], $_POST['Ek'])) ?>%</text>
-                    </g>
-                    <g id="mid-line" transform="matrix(0.558742,0,0,0.0263247,-247.77,212.234)">
-                        <rect x="673.511" y="360.697" width="54.503" height="37.987" style="fill:rgb(4,206,0);stroke:black;stroke-width:5.35px;" />
-                    </g>
-                    <g id="red-line" transform="matrix(0.558742,0,0,0.0263247,-247.77,-9.49524)">
-                        <rect x="673.511" y="360.697" width="54.503" height="37.987" style="fill:rgb(4,206,0);stroke:black;stroke-width:5.35px;" />
-                    </g>
-                    <g id="green-line" transform="matrix(0.558742,0,0,0.0263247,-247.77,432.963)">
-                        <rect x="673.511" y="360.697" width="54.503" height="37.987" style="fill:rgb(4,206,0);stroke:black;stroke-width:5.35px;" />
-                    </g>
-                </g>
-            </g>
-        </svg>
 
+    </div>
+    <h2>Ihre Belehnung: <br> 70% Ausreichend</h2>
+
+    <div class="VChart">
+        <canvas id="myChart" width="400" height="400"></canvas>
     </div>
     <div class="vl"></div>
 
@@ -129,30 +84,30 @@
             </div>
         </label>
         <label>
-        <div>
-            <h3><?php
-                if (isset($_POST['calc'])) {
-                    echo calcTragbarkeit($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
-                } ?></h3>
-    
-        <svg xmlns="http://www.w3.org/2000/svg" width="380" height="100" viewBox="0 0 2096 143">
-            <defs>
-                <style>
-                    .cls-1 {
-                        fill: #b4b4b4;
-                        stroke: #b4b4b4;
-                        stroke-width: 2px;
-                    }
+            <div>
+                <h3><?php
+                    if (isset($_POST['calc'])) {
+                        echo calcTragbarkeit($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
+                    } ?></h3>
 
-                    .cls-2 {
-                        fill: #3aaa35;
-                    }
-                </style>
-            </defs>
-            <rect id="Background" class="cls-1" width="2096" height="143" rx="70" ry="70" />
-            <path id="Bar" class="cls-2" d="M70,0H1996a0,0,0,0,1,0,0V143a0,0,0,0,1,0,0H70A70,70,0,0,1,0,73V70A70,70,0,0,1,70,0Z" />
-        </svg>
-        </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="380" height="100" viewBox="0 0 2096 143">
+                    <defs>
+                        <style>
+                            .cls-1 {
+                                fill: #b4b4b4;
+                                stroke: #b4b4b4;
+                                stroke-width: 2px;
+                            }
+
+                            .cls-2 {
+                                fill: #3aaa35;
+                            }
+                        </style>
+                    </defs>
+                    <rect id="Background" class="cls-1" width="2096" height="143" rx="70" ry="70" />
+                    <path id="Bar" class="cls-2" d="M70,0H1996a0,0,0,0,1,0,0V143a0,0,0,0,1,0,0H70A70,70,0,0,1,0,73V70A70,70,0,0,1,70,0Z" />
+                </svg>
+            </div>
         </label>
         <!--<input type="text" name="Result" value="<?php
                                                     if (isset($_POST['calc'])) {
@@ -377,7 +332,7 @@
     <div id="demo"></div>
 
 </body>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="Library/jquery-3.5.1.js"></script>
 <script src="js/script.js"></script>
 <script src="js/chart.js"></script>

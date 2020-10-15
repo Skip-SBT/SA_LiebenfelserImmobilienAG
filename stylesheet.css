@@ -174,9 +174,8 @@ Filename       : stylesheet
         }
         
         .VChart {
-            width: 40wh;
-            height: 20hv;
             text-align: center;
+            display: inline;
         }
         
         .VChart svg {

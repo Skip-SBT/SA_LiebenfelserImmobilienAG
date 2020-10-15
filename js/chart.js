@@ -28,3 +28,42 @@ function draw_square() {
     ctx.fillText(bel + " %", c.width / 2, height + abzug / 2);
     ctx.stroke();
 }
+var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        datasets: [{
+                data: [5],
+                backgroundColor: '#b82e2e'
+            },
+
+            {
+                data: [4],
+                backgroundColor: '#3366cc'
+            }
+        ]
+    },
+    options: {
+        responsive: false,
+        legend: {
+            display: false
+        },
+        scales: {
+
+            xAxes: [{
+                stacked: true,
+                gridLines: {
+                    drawBorder: false,
+                    display: false
+                }
+            }],
+            yAxes: [{
+                stacked: true,
+                gridLines: {
+                    drawBorder: false,
+                    display: false
+                }
+            }]
+        }
+    }
+});
