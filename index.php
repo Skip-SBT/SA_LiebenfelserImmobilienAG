@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <!--
     To change this license header, choose License Headers in Project Properties.
+    <meta charset="UTF-8">
     To change this template file, choose Tools | Templates
     and open the template in the editor.
 -->
 <html>
 
 <head>
-    <meta charset="UTF-8">
     <title>Hypothekenrechner – Liebenfelser Immobilien AG</title>
     <link href="stylesheet.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="print.css">
@@ -62,7 +62,7 @@
                         </div>
                     </div>
 
-                    <input type="number" id="price" name="Kaufpreis" value="<?php echo $_POST['Kaufpreis'] ?>" />
+                    <input type="number" id="price" name="Kaufpreis" value="<?php echo $_POST['Kaufpreis'] ?>" /> 
                 </div>
                 <input type="submit" name="calc" id="calc" value="Download" id="b1">
                 <button type="button"name="calc"onclick="printJS('/docs/test.pdf')">Print PDF</button>
@@ -108,9 +108,6 @@
                                                         if (isset($_POST['calc'])) {
                                                             echo calcTragbarkeit($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
                                                         } ?>" readonly>
-
-
-
 
             <div>
                 <h3>Hypothekarzinsen j.</h3>
@@ -331,6 +328,7 @@
 <script src="Library/jquery-3.5.1.js"></script>
 <script src="js/script.js"></script>
 <script src="js/chart.js"></script>
+<script src="js/complete.js"></script>
 <script src="print.js"></script>
 
 </html>
