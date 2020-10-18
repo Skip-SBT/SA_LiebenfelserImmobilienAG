@@ -10,6 +10,7 @@
     <meta charset="UTF-8">
     <title>Hypothekenrechner – Liebenfelser Immobilien AG</title>
     <link href="stylesheet.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="print.css">
 </head>
 <nav>
     <img src="Pictures/logo.svg">
@@ -35,7 +36,7 @@
                             <i></i>
                         </div>
                     </div>
-                    <input type="number" name="Ek" value="<?php echo $_POST['Ek'] ?>" />
+                    <input type="number" id="ek" name="Ek" value="<?php echo $_POST['Ek'] ?>" />
 
                 </div>
 
@@ -61,20 +62,36 @@
                         </div>
                     </div>
 
-                    <input type="number" name="Kaufpreis" value="<?php echo $_POST['Kaufpreis'] ?>" />
+                    <input type="number" id="price" name="Kaufpreis" value="<?php echo $_POST['Kaufpreis'] ?>" />
                 </div>
-                <input type="submit" name="calc" value="Download" id="b1">
+                <input type="submit" name="calc" id="calc" value="Download" id="b1">
+                <button type="button"name="calc"onclick="printJS('/docs/test.pdf')">Print PDF</button>
+                <button type="button"name="calc" onclick="printJS('form','html')">Print Form</button>
             </form>
         </div>
 
         <div class="chart">
-            <h2>Ihre Belehnung: <br> 70% Ausreichend</h2>
+            <h2>Ihre Belehnung: <?php   if (isset($_POST['calc'])) {echo calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']) . "%" ?><br><?php if (calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']) < 80) {
+                                                                                                            echo "Belehnung Ausreichend";
+                                                                                                        } else {
+                                                                                                            echo "Belehnung zu hoch";
+                                                                                                        }
+                                                                                                        } ?></h2>
             <canvas id="myChart" width="400" height="400"></canvas>
         </div>
 
         <div class="results">
             <div>
-                <h2>Tragbarkeit</h2>
+                <h2>Tragbarkeit: <?php
+                    if (isset($_POST['calc'])) {
+                        $res = calcTragbarkeit($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
+                        if ($res > 33.0) {
+                         
+                            echo $res."% nicht gegeben";
+                        } else {
+                            echo $res. "% gegeben";
+                        }
+                    } ?></h2> 
                 <div class="tooltip"><img src="Pictures\info1.png">
                     <div class="right">
                         <p>Die Gesamtkosten der Liegenschaft sollten nicht mehr als 33% des Bruttoeinkommens betragen, damit die Immobilie langfristig für Sie tragbar ist.</p>
@@ -83,33 +100,14 @@
                 </div>
             </div>
             <div>
-                    <h3><?php
-                        if (isset($_POST['calc'])) {
-                            echo calcTragbarkeit($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
-                        } ?></h3>
+                <h3></h3>
 
-                    <svg xmlns="http://www.w3.org/2000/svg" width="380" height="100" viewBox="0 0 2096 143">
-                        <defs>
-                            <style>
-                                .cls-1 {
-                                    fill: #b4b4b4;
-                                    stroke: #b4b4b4;
-                                    stroke-width: 2px;
-                                }
-
-                                .cls-2 {
-                                    fill: #3aaa35;
-                                }
-                            </style>
-                        </defs>
-                        <rect id="Background" class="cls-1" width="2096" height="143" rx="70" ry="70" />
-                        <path id="Bar" class="cls-2" d="M70,0H1996a0,0,0,0,1,0,0V143a0,0,0,0,1,0,0H70A70,70,0,0,1,0,73V70A70,70,0,0,1,70,0Z" />
-                    </svg>
+                <canvas id="Chart1" width="400px" height="50px"></canvas>
             </div>
-            <!--<input type="text" name="Result" value="<?php
+            <input type="hidden" id="tragbarkeit" name="Result" value="<?php
                                                         if (isset($_POST['calc'])) {
                                                             echo calcTragbarkeit($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
-                                                        } ?>" readonly> -->
+                                                        } ?>" readonly>
 
 
 
@@ -272,12 +270,12 @@
             if ($res > 100) {
                 $res = 100;
             }
-            echo number_format($res) . " % | Tragbarkeit nicht gegeben";
+            return number_format($res);
         } else {
             if ($res < 0) {
                 $res = 0;
             }
-            echo number_format($res) . " % | Tragbarkeit gegeben";
+            return number_format($res);
         }
     }
 
@@ -327,11 +325,12 @@
     }
     ?>
     <div id="demo"></div>
-
+    
 </body>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="Library/jquery-3.5.1.js"></script>
 <script src="js/script.js"></script>
 <script src="js/chart.js"></script>
+<script src="print.js"></script>
 
 </html>

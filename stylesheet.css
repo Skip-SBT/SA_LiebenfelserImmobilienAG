@@ -1,5 +1,6 @@
         /*
 Filename       : stylesheet
+
     Created on : 05.07.2020, 22:48:58
     Author     : Maximilian Hubrath
 */
@@ -46,7 +47,7 @@ Filename       : stylesheet
             font-size: 90px;
             position: absolute;
             bottom: 30px;
-            right: 30px;
+            right: 35%;
         }
         /* --- nav --- */
         
@@ -68,11 +69,12 @@ Filename       : stylesheet
         /* --- main --- */
         
         .main {
-            height: 100vh;
+            height: 75vh;
             display: flex;
             flex-flow: row nowrap;
             justify-content: space-between;
             padding: 30px;
+            margin-top: 7%;
         }
         
         .input {
@@ -81,6 +83,7 @@ Filename       : stylesheet
         
         .results {
             min-width: 260px;
+            max-width: 500px;
         }
         
         form {
@@ -174,6 +177,10 @@ Filename       : stylesheet
         
         h2 {
             text-align: center;
+        }
+        
+        .graph_container {
+            display: block;
         }
         /* .VChart {
             width: 40wh;
