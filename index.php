@@ -328,7 +328,7 @@
 <script src="Library/jquery-3.5.1.js"></script>
 <script src="js/script.js"></script>
 <script src="js/chart.js"></script>
-<script src="js/complete.js"></script>
+<!-- <script src="js/complete.js"></script> -->
 <script src="print.js"></script>
 
 </html>
