@@ -39,6 +39,7 @@ Filename       : stylesheet
         
         header img {
             width: 100%;
+            text-align: center;
         }
         
         header h1 {
@@ -151,7 +152,8 @@ Filename       : stylesheet
             line-height: 27px;
         }
         
-        input[type=submit] {
+        input[type=submit],
+        button {
             background-color: #4CAF50;
             border: none;
             color: white;

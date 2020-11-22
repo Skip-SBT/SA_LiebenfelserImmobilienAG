@@ -3,6 +3,7 @@ var ek = document.getElementById('ek').value;
 console.log("ek = " + ek);
 var price = document.getElementById('price').value;
 var ctx1 = document.getElementById('myChart').getContext('2d');
+// If ek & price is not set = 0
 var chart1 = new Chart(ctx1, {
     type: 'bar',
     data: {

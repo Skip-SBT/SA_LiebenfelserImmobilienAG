@@ -6,11 +6,15 @@
     and open the template in the editor.
 -->
 <html>
+<?php
+
+?>
 
 <head>
     <title>Hypothekenrechner – Liebenfelser Immobilien AG</title>
     <link href="stylesheet.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="print.css">
+    <link href="stylePopUp.css" rel="stylesheet" type="text/css" />
 </head>
 <nav>
     <img src="Pictures/logo.svg">
@@ -62,36 +66,71 @@
                         </div>
                     </div>
 
-                    <input type="number" id="price" name="Kaufpreis" value="<?php echo $_POST['Kaufpreis'] ?>" /> 
+                    <input type="number" id="price" name="Kaufpreis" value="<?php echo $_POST['Kaufpreis'] ?>" />
                 </div>
-                <input type="submit" name="calc" id="calc" value="Download" id="b1">
-                <button type="button"name="calc"onclick="printJS('/docs/test.pdf')">Print PDF</button>
-                <button type="button"name="calc" onclick="printJS('form','html')">Print Form</button>
+                <input type="submit" name="calc" id="calc" value="Ausrechnen" id="b1">
+
+                <button type="button" id="popup" name="PopUp">Detailiertes PDF</button>
+
+
             </form>
+
+            <div id="myModal" class="modal">
+
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+
+                    <head>
+                        <h1>Detailiertes PDF drucken</h1>
+                    </head>
+
+                    <body>
+                        <p>Um ein Detailiertes PDF zu generieren müssen Sie unten im Formular Ihre Kontaktdaten angeben.</p>
+                        <form method="POST" id="popup">
+                            <h3>Vorname</h3>
+                            <input type="text" id="Vorname" />
+                            <h3>Nachname</h3>
+                            <input type="text" id="Nachname" />
+                            <h3>e-Mail</h3>
+                            <input type="text" id="email" />
+                            <button type="submit" name="addToDB" value="2">Drucken</button>
+                        </form>
+                    </body>
+                </div>
+            </div>
         </div>
+        <?php
+        if (isset($_POST['addToDB'])) {
+            addToDB();
+        }
+      
+        ?>
+
 
         <div class="chart">
-            <h2>Ihre Belehnung: <?php   if (isset($_POST['calc'])) {echo calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']) . "%" ?><br><?php if (calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']) < 80) {
+            <h2>Ihre Belehnung: <?php if (isset($_POST['calc'])) {
+                                    echo calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']) . "%" ?><br><?php if (calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']) < 80) {
                                                                                                             echo "Belehnung Ausreichend";
                                                                                                         } else {
                                                                                                             echo "Belehnung zu hoch";
                                                                                                         }
-                                                                                                        } ?></h2>
+                                                                                                    } ?></h2>
             <canvas id="myChart" width="400" height="400"></canvas>
         </div>
 
         <div class="results">
             <div>
                 <h2>Tragbarkeit: <?php
-                    if (isset($_POST['calc'])) {
-                        $res = calcTragbarkeit($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
-                        if ($res > 33.0) {
-                         
-                            echo $res."% nicht gegeben";
-                        } else {
-                            echo $res. "% gegeben";
-                        }
-                    } ?></h2> 
+                                    if (isset($_POST['calc'])) {
+                                        $res = calcTragbarkeit($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
+                                        if ($res > 33.0) {
+
+                                            echo $res . "% nicht gegeben";
+                                        } else {
+                                            echo $res . "% gegeben";
+                                        }
+                                    } ?></h2>
                 <div class="tooltip"><img src="Pictures\info1.png">
                     <div class="right">
                         <p>Die Gesamtkosten der Liegenschaft sollten nicht mehr als 33% des Bruttoeinkommens betragen, damit die Immobilie langfristig für Sie tragbar ist.</p>
@@ -105,9 +144,9 @@
                 <canvas id="Chart1" width="400px" height="50px"></canvas>
             </div>
             <input type="hidden" id="tragbarkeit" name="Result" value="<?php
-                                                        if (isset($_POST['calc'])) {
-                                                            echo calcTragbarkeit($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
-                                                        } ?>" readonly>
+                                                                        if (isset($_POST['calc'])) {
+                                                                            echo calcTragbarkeit($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
+                                                                        } ?>" readonly>
 
             <div>
                 <h3>Hypothekarzinsen j.</h3>
@@ -320,9 +359,19 @@
         $kaufpreis = $ek * 5;
         return $kaufpreis;
     }
+    function addToDB()
+    {
+        $dbdir = 'C:/XAMPPREAL/htdocs/FormularSA/DB';
+        /* Datenbankdatei ausserhalb htdocs öffnen bzw. erzeugen */
+        $db = new SQLite3("$dbdir/SA_Lfimmo.db");
+        $sqlstr = "INSERT INTO TInformationen (InfoEK, InfoJahreseinkommen, InfoKaufpreis, InfoHypothekarzins, InfoAmortisation, InfoUnterhaltskosten, InfoMGesamtkosten, InfoVorname, InfoNachname, InfoEmail) VALUES";
+        $db->query($sqlstr . "('2323','200000','2000000','15000','5000','2800','2000','Elias','Baumgartner','Nas.ur@gmil.com');");
+        $db->close();
+    }
     ?>
+
     <div id="demo"></div>
-    
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="Library/jquery-3.5.1.js"></script>
