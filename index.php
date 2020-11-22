@@ -73,8 +73,7 @@
                 <button type="button" id="popup" name="PopUp">Detailiertes PDF</button>
 
 
-            </form>
-
+           
             <div id="myModal" class="modal">
 
                 <!-- Modal content -->
@@ -87,18 +86,20 @@
 
                     <body>
                         <p>Um ein Detailiertes PDF zu generieren müssen Sie unten im Formular Ihre Kontaktdaten angeben.</p>
-                        <form method="POST" id="popup">
+                        
                             <h3>Vorname</h3>
-                            <input type="text" id="Vorname" />
+                            <input type="text" name="vorname" />
                             <h3>Nachname</h3>
-                            <input type="text" id="Nachname" />
+                            <input type="text" name="nachname" />
                             <h3>e-Mail</h3>
-                            <input type="text" id="email" />
+                            <input type="text" name="email" />
                             <button type="submit" name="addToDB" value="2">Drucken</button>
-                        </form>
+                        
                     </body>
                 </div>
             </div>
+            </form>
+
         </div>
         <?php
         if (isset($_POST['addToDB'])) {
@@ -144,7 +145,7 @@
                 <canvas id="Chart1" width="400px" height="50px"></canvas>
             </div>
             <input type="hidden" id="tragbarkeit" name="Result" value="<?php
-                                                                        if (isset($_POST['calc'])) {
+                                                                        if (isset($_POST['calc']) OR isset($_POST['addToDB'])) {
                                                                             echo calcTragbarkeit($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
                                                                         } ?>" readonly>
 
@@ -156,8 +157,8 @@
                         <i></i>
                     </div>
                 </div>
-                <input type="text" name="Result" value="<?php
-                                                        if (isset($_POST['calc'])) {
+                <input type="text" name="hypo" value="<?php
+                                                        if (isset($_POST['calc']) OR isset($_POST['addToDB'])) {
                                                             $zins = calcZins($_POST['Kaufpreis'], $_POST['Ek']);
                                                             echo $zins . " CHF";
                                                         } ?>" readonly>
@@ -173,7 +174,7 @@
                     </div>
                 </div>
                 <input type="text" name="Result" value="<?php
-                                                        if (isset($_POST['calc'])) {
+                                                        if (isset($_POST['calc']) OR isset($_POST['addToDB'] )) {
                                                             echo number_format(calcAmotisation($_POST['Kaufpreis'], $_POST['Ek'])) . " CHF";
                                                         } ?>" readonly>
             </div>
@@ -186,7 +187,7 @@
                     </div>
                 </div>
                 <input type="text" name="Result" value="<?php
-                                                        if (isset($_POST['calc'])) {
+                                                        if (isset($_POST['calc']) OR isset($_POST['addToDB'])) {
                                                             $nebenkosten = $_POST['Kaufpreis'] * 0.007;
                                                             echo number_format($nebenkosten) . " CHF";
                                                         } ?>" readonly>
@@ -201,7 +202,7 @@
                     </div>
                 </div>
                 <input type="text" name="Result" value="<?php
-                                                        if (isset($_POST['calc'])) {
+                                                        if (isset($_POST['calc']) OR isset($_POST['addToDB'])) {
                                                             echo calcMonatlichegesammtkosten($_POST['Kaufpreis'], $_POST['Ek']) . " CHF";
                                                         } ?>" readonly>
 
@@ -289,7 +290,7 @@
         if ($zins < 0) {
             $zins = 0;
         }
-        echo number_format($zins);
+        return number_format($zins);
     }
 
     function calcTragbarkeit($kaufpreis, $ek, $einkommen)
@@ -351,7 +352,7 @@
         }
 
         $gesammt = ($zins + $amortisationsbetrag + $unterhaltskosten) / 12;
-        echo number_format($gesammt);
+        return number_format($gesammt);
     }
 
     function autocompleteKaufpreis($ek)
@@ -365,7 +366,7 @@
         /* Datenbankdatei ausserhalb htdocs öffnen bzw. erzeugen */
         $db = new SQLite3("$dbdir/SA_Lfimmo.db");
         $sqlstr = "INSERT INTO TInformationen (InfoEK, InfoJahreseinkommen, InfoKaufpreis, InfoHypothekarzins, InfoAmortisation, InfoUnterhaltskosten, InfoMGesamtkosten, InfoVorname, InfoNachname, InfoEmail) VALUES";
-        $db->query($sqlstr . "('2323','200000','2000000','15000','5000','2800','2000','Elias','Baumgartner','Nas.ur@gmil.com');");
+        $db->query($sqlstr . "('".$_POST['Ek']."','".$_POST['Jahreseinkommen']."','".$_POST['Kaufpreis']."','".calcZins($_POST['Kaufpreis'], $_POST['Ek'])."','".calcAmotisation($_POST['Kaufpreis'], $_POST['Ek'])."','".$_POST['Kaufpreis'] * 0.007."','".calcMonatlichegesammtkosten($_POST['Kaufpreis'], $_POST['Ek'])."','".$_POST['vorname']."','".$_POST['nachname']."','".$_POST['email']."');");
         $db->close();
     }
     ?>
