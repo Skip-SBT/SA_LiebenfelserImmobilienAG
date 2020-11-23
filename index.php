@@ -1,46 +1,52 @@
 <!DOCTYPE html>
 <!--
     To change this license header, choose License Headers in Project Properties.
+    <meta charset="UTF-8">
     To change this template file, choose Tools | Templates
     and open the template in the editor.
 -->
 <html>
+<?php
+
+?>
 
 <head>
-    <meta charset="UTF-8">
     <title>Hypothekenrechner – Liebenfelser Immobilien AG</title>
     <link href="stylesheet.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="print.css">
+    <link href="stylePopUp.css" rel="stylesheet" type="text/css" />
 </head>
 <nav>
-    <img src="Pictures\logo.svg">
+    <img src="Pictures/logo.svg">
 
 </nav>
 <header>
+    <img src="/Pictures/placeholder3.jpg" alt="placeholder house">
     <h1>Modellrechnung</h1>
 </header>
 
-<body onLoad="window.location ='#form'">
-    <div class="upper">
-        <form action="index.php" method="POST" id="form">
-        
-            <div class="input">
-           
-                <label>
+<body onLoad="window.location ='#main'">
+    <div id="main" class="main">
+        <!-- input -->
+        <div class="input">
+            <form action="index.php" method="POST" id="form">
+
+                <div>
                     <h3>Eigenkapital</h3>
-                    <div class="btn btn-primary tooltip"><img src="Pictures\info1.png">
+                    <div class="tooltip"><img src="Pictures\info1.png">
                         <div class="right">
                             <h3>Eigenkapital</h3>
                             <p>Dolor sit amet, consectetur adipiscing elit.</p>
                             <i></i>
                         </div>
                     </div>
-                    <input type="number" name="Ek" value="<?php echo $_POST['Ek'] ?>" />
+                    <input type="number" id="ek" name="Ek" value="<?php echo $_POST['Ek'] ?>" />
 
-                </label>
+                </div>
 
-                <label>
+                <div>
                     <h3>Jahreseinkommen</h3>
-                    <div class="btn btn-primary tooltip"><img src="Pictures\info1.png">
+                    <div class="tooltip"><img src="Pictures\info1.png">
                         <div class="right">
                             <h3>Jahreseinkommen</h3>
                             <p>Dolor sit amet, consectetur adipiscing elit.</p>
@@ -48,11 +54,11 @@
                         </div>
                     </div>
                     <input type="number" name="Jahreseinkommen" value="<?php echo $_POST['Jahreseinkommen'] ?>" />
-                </label>
+                </div>
 
-                <label>
+                <div>
                     <h3>Kaufpreis / Total Investition</h3>
-                    <div class="btn btn-primary tooltip"><img src="Pictures\info1.png">
+                    <div class="tooltip"><img src="Pictures\info1.png">
                         <div class="right">
                             <h3>Kaufpreis/Total Investition</h3>
                             <p>Dolor sit amet, consectetur adipiscing elit.</p>
@@ -60,174 +66,155 @@
                         </div>
                     </div>
 
-                    <input type="number" name="Kaufpreis" value="<?php echo $_POST['Kaufpreis'] ?>" />
-                </label>
-                <input type="submit" name="calc" value="Berechnen" id="b1">
-        </form>
-       
-    </div>
-    <h2>Ihre Belehnung</h2>
-    <div class="VChart">
-        <svg width="30vw" height="100%" viewBox="0 0 670 444" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
-            <g id="Artboard1" transform="matrix(1.64186,0,0,1,0,0)">
-                <rect x="0" y="0" width="408.073" height="443.458" style="fill:none;" />
-                <clipPath id="_clip1">
-                    <rect x="0" y="0" width="408.073" height="443.458" />
-                </clipPath>
-                <g clip-path="url(#_clip1)">
-                    <g id="red-rect" transform="matrix(0.609065,0,0,1,-194.649,-103.045)">
-                        <path d="M512,124.191C512,112.52 502.525,103.045 490.854,103.045L340.733,103.045C329.062,103.045 319.587,112.52 319.587,124.191L319.587,525.357C319.587,537.028 329.062,546.503 340.733,546.503L490.854,546.503C502.525,546.503 512,537.028 512,525.357L512,124.191Z" style="fill:rgb(255,0,0);" />
-                        <clipPath id="_clip2">
-                            <path d="M512,124.191C512,112.52 502.525,103.045 490.854,103.045L340.733,103.045C329.062,103.045 319.587,112.52 319.587,124.191L319.587,525.357C319.587,537.028 329.062,546.503 340.733,546.503L490.854,546.503C502.525,546.503 512,537.028 512,525.357L512,124.191Z" />
-                        </clipPath>
-                        <g clip-path="url(#_clip2)">
-                            <g id="green-rect" transform="matrix(1,0,0,0.899497,0,54.9249)">
-                                <rect x="319.587" y="<?php echo (600.503 / 100 * (100 - calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']))) ?>" width="192.413" height="600.503 " style="fill:rgb(4,206,0);" />
-                            </g>
-                        </g>
-                    </g>
-                    <g id="red-lb" transform="matrix(0.609065,0,0,1,-214.823,43.9484)">
-                        <text x="415.794px" y="<?php echo (60.839 * 2 / 100 * (100 - calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']))) ?>" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:33.433px;"><?php if (100 - calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']) >= 19) {
-                                                                                                                                                                                                                        echo (100 - calcBelehnung($_POST['Kaufpreis'], $_POST['Ek'])) . "%";
-                                                                                                                                                                                                                    } else {
-                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                    ?></text>
-                    </g>
-                    <g id="red-desc" transform="matrix(0.609065,0,0,1,-129.644,50.7551)">
-                        <text x="415.794px" y="70.839px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:33.433px;">Eigenmittel: </text>
-                    </g>
-                    <g id="green-desc" transform="matrix(0.609065,0,0,1,-125.541,273.484)">
-                        <text x="415.794px" y="70.839px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:33.433px;">Hypotheke: </text>
-                    </g>
-                    <g id="green-lb" transform="matrix(0.609065,0,0,1,-214.823,273.484)">
-                        <text x="415.794px" y="<?php echo (77.839 * 2 / 100 * (100 - calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']))) ?>" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:33.433px;"><?php echo (calcBelehnung($_POST['Kaufpreis'], $_POST['Ek'])) ?>%</text>
-                    </g>
-                    <g id="mid-line" transform="matrix(0.558742,0,0,0.0263247,-247.77,212.234)">
-                        <rect x="673.511" y="360.697" width="54.503" height="37.987" style="fill:rgb(4,206,0);stroke:black;stroke-width:5.35px;" />
-                    </g>
-                    <g id="red-line" transform="matrix(0.558742,0,0,0.0263247,-247.77,-9.49524)">
-                        <rect x="673.511" y="360.697" width="54.503" height="37.987" style="fill:rgb(4,206,0);stroke:black;stroke-width:5.35px;" />
-                    </g>
-                    <g id="green-line" transform="matrix(0.558742,0,0,0.0263247,-247.77,432.963)">
-                        <rect x="673.511" y="360.697" width="54.503" height="37.987" style="fill:rgb(4,206,0);stroke:black;stroke-width:5.35px;" />
-                    </g>
-                </g>
-            </g>
-        </svg>
+                    <input type="number" id="price" name="Kaufpreis" value="<?php echo $_POST['Kaufpreis'] ?>" />
+                </div>
+                <input type="submit" name="calc" id="calc" value="Ausrechnen" id="b1">
 
-    </div>
-    <div class="vl"></div>
+                <button type="button" id="popup" name="PopUp">Detailiertes PDF</button>
 
-    <div class="results">
-        <label>
-            <h2>Tragbarkeit</h2>
-            <div class="btn btn-primary tooltip"><img src="Pictures\info1.png">
-                <div class="right">
-                    <p>Die Gesamtkosten der Liegenschaft sollten nicht mehr als 33% des Bruttoeinkommens betragen, damit die Immobilie langfristig für Sie tragbar ist.</p>
-                    <i></i>
+
+           
+            <div id="myModal" class="modal">
+
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+
+                    <head>
+                        <h1>Detailiertes PDF drucken</h1>
+                    </head>
+
+                    <body>
+                        <p>Um ein Detailiertes PDF zu generieren müssen Sie unten im Formular Ihre Kontaktdaten angeben.</p>
+                        
+                            <h3>Vorname</h3>
+                            <input type="text" name="vorname" />
+                            <h3>Nachname</h3>
+                            <input type="text" name="nachname" />
+                            <h3>e-Mail</h3>
+                            <input type="text" name="email" />
+                            <button type="submit" name="addToDB" value="2">Drucken</button>
+                        
+                    </body>
                 </div>
             </div>
-        </label>
-        <label>
-        <div>
-            <h3><?php
-                if (isset($_POST['calc'])) {
-                    echo calcTragbarkeit($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
-                } ?></h3>
-    
-        <svg xmlns="http://www.w3.org/2000/svg" width="380" height="100" viewBox="0 0 2096 143">
-            <defs>
-                <style>
-                    .cls-1 {
-                        fill: #b4b4b4;
-                        stroke: #b4b4b4;
-                        stroke-width: 2px;
-                    }
+            </form>
 
-                    .cls-2 {
-                        fill: #3aaa35;
-                    }
-                </style>
-            </defs>
-            <rect id="Background" class="cls-1" width="2096" height="143" rx="70" ry="70" />
-            <path id="Bar" class="cls-2" d="M70,0H1996a0,0,0,0,1,0,0V143a0,0,0,0,1,0,0H70A70,70,0,0,1,0,73V70A70,70,0,0,1,70,0Z" />
-        </svg>
         </div>
-        </label>
-        <!--<input type="text" name="Result" value="<?php
-                                                    if (isset($_POST['calc'])) {
-                                                        echo calcTragbarkeit($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
-                                                    } ?>" readonly> -->
+        <?php
+        if (isset($_POST['addToDB'])) {
+            addToDB();
+        }
+      
+        ?>
 
 
+        <div class="chart">
+            <h2>Ihre Belehnung: <?php if (isset($_POST['calc'])) {
+                                    echo calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']) . "%" ?><br><?php if (calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']) < 80) {
+                                                                                                            echo "Belehnung Ausreichend";
+                                                                                                        } else {
+                                                                                                            echo "Belehnung zu hoch";
+                                                                                                        }
+                                                                                                    } ?></h2>
+            <canvas id="myChart" width="400" height="400"></canvas>
+        </div>
 
+        <div class="results">
+            <div>
+                <h2>Tragbarkeit: <?php
+                                    if (isset($_POST['calc'])) {
+                                        $res = calcTragbarkeit($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
+                                        if ($res > 33.0) {
 
-        <label>
-            <h3>Hypothekarzinsen j.</h3>
-            <div class="btn btn-primary tooltip"><img src="Pictures\info1.png">
-                <div class="right">
-                    <p>Für die Berechnung der langfristigen Hypothekarzinsen wird mit einem kalkulatorischen Zinssatz von 5.00% gerechnet.</p>
-                    <i></i>
+                                            echo $res . "% nicht gegeben";
+                                        } else {
+                                            echo $res . "% gegeben";
+                                        }
+                                    } ?></h2>
+                <div class="tooltip"><img src="Pictures\info1.png">
+                    <div class="right">
+                        <p>Die Gesamtkosten der Liegenschaft sollten nicht mehr als 33% des Bruttoeinkommens betragen, damit die Immobilie langfristig für Sie tragbar ist.</p>
+                        <i></i>
+                    </div>
                 </div>
             </div>
-            <input type="text" name="Result" value="<?php
-                                                    if (isset($_POST['calc'])) {
-                                                        $zins = calcZins($_POST['Kaufpreis'], $_POST['Ek']);
-                                                        echo $zins . " CHF";
-                                                    } ?>" readonly>
+            <div>
+                <h3></h3>
 
-
-        </label>
-        <label>
-            <h3>Amortisation j.</h3>
-            <div class="btn btn-primary tooltip"><img src="Pictures\info1.png">
-                <div class="right">
-                    <p>II. Hypotheken sind innert 15 Jahren zu amortisieren.</p>
-                    <i></i>
-                </div>
+                <canvas id="Chart1" width="400px" height="50px"></canvas>
             </div>
-            <input type="text" name="Result" value="<?php
-                                                    if (isset($_POST['calc'])) {
-                                                        echo number_format(calcAmotisation($_POST['Kaufpreis'], $_POST['Ek'])) . " CHF";
-                                                    } ?>" readonly>
-        </label>
-        <label>
-            <h3>Unterhaltskosten j.</h3>
-            <div class="btn btn-primary tooltip"><img src="Pictures\info1.png">
-                <div class="right">
-                    <p>Für die Berechnung der jährlichen Nebenkosten wird mit 0.7% vom Liegenschaftswert gerechnet.</p>
-                    <i></i>
+            <input type="hidden" id="tragbarkeit" name="Result" value="<?php
+                                                                        if (isset($_POST['calc']) OR isset($_POST['addToDB'])) {
+                                                                            echo calcTragbarkeit($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
+                                                                        } ?>" readonly>
+
+            <div>
+                <h3>Hypothekarzinsen j.</h3>
+                <div class="tooltip"><img src="Pictures\info1.png">
+                    <div class="right">
+                        <p>Für die Berechnung der langfristigen Hypothekarzinsen wird mit einem kalkulatorischen Zinssatz von 5.00% gerechnet.</p>
+                        <i></i>
+                    </div>
                 </div>
-            </div>
-            <input type="text" name="Result" value="<?php
-                                                    if (isset($_POST['calc'])) {
-                                                        $nebenkosten = $_POST['Kaufpreis'] * 0.007;
-                                                        echo number_format($nebenkosten) . " CHF";
-                                                    } ?>" readonly>
+                <input type="text" name="hypo" value="<?php
+                                                        if (isset($_POST['calc']) OR isset($_POST['addToDB'])) {
+                                                            $zins = calcZins($_POST['Kaufpreis'], $_POST['Ek']);
+                                                            echo $zins . " CHF";
+                                                        } ?>" readonly>
 
-        </label>
-        <label>
-            <h3>Monatliche Gesamtkosten</h3>
-            <div class="btn btn-primary tooltip"><img src="Pictures\info1.png">
-                <div class="right">
-                    <p>Durchschnittliche Gesamtkosten, welche für die Liegenschaften pro Monat langfristig anfallen.</p>
-                    <i></i>
+
+            </div>
+            <div>
+                <h3>Amortisation j.</h3>
+                <div class="tooltip"><img src="Pictures\info1.png">
+                    <div class="right">
+                        <p>II. Hypotheken sind innert 15 Jahren zu amortisieren.</p>
+                        <i></i>
+                    </div>
                 </div>
+                <input type="text" name="Result" value="<?php
+                                                        if (isset($_POST['calc']) OR isset($_POST['addToDB'] )) {
+                                                            echo number_format(calcAmotisation($_POST['Kaufpreis'], $_POST['Ek'])) . " CHF";
+                                                        } ?>" readonly>
             </div>
-            <input type="text" name="Result" value="<?php
-                                                    if (isset($_POST['calc'])) {
-                                                        echo calcMonatlichegesammtkosten($_POST['Kaufpreis'], $_POST['Ek']) . " CHF";
-                                                    } ?>" readonly>
+            <div>
+                <h3>Unterhaltskosten j.</h3>
+                <div class="tooltip"><img src="Pictures\info1.png">
+                    <div class="right">
+                        <p>Für die Berechnung der jährlichen Nebenkosten wird mit 0.7% vom Liegenschaftswert gerechnet.</p>
+                        <i></i>
+                    </div>
+                </div>
+                <input type="text" name="Result" value="<?php
+                                                        if (isset($_POST['calc']) OR isset($_POST['addToDB'])) {
+                                                            $nebenkosten = $_POST['Kaufpreis'] * 0.007;
+                                                            echo number_format($nebenkosten) . " CHF";
+                                                        } ?>" readonly>
 
-        </label>
+            </div>
+            <div>
+                <h3>Monatliche Gesamtkosten</h3>
+                <div class="tooltip"><img src="Pictures\info1.png">
+                    <div class="right">
+                        <p>Durchschnittliche Gesamtkosten, welche für die Liegenschaften pro Monat langfristig anfallen.</p>
+                        <i></i>
+                    </div>
+                </div>
+                <input type="text" name="Result" value="<?php
+                                                        if (isset($_POST['calc']) OR isset($_POST['addToDB'])) {
+                                                            echo calcMonatlichegesammtkosten($_POST['Kaufpreis'], $_POST['Ek']) . " CHF";
+                                                        } ?>" readonly>
 
-        <!-- Belehnungsgrad</h3> -->
-        <input type="Text" type="hidden" id="bel" name="Result" id="b22" value="<?php
-                                                                                if (isset($_POST['calc'])) {
-                                                                                    echo calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']);
-                                                                                } ?>" readonly>
+            </div>
 
-    </div>
+            <!-- Belehnungsgrad</h3> -->
+            <input type="Text" type="hidden" id="bel" name="Result" id="b22" value="<?php
+                                                                                    if (isset($_POST['calc'])) {
+                                                                                        echo calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']);
+                                                                                    } ?>" readonly>
+
+        </div>
     </div>
 
     <div class="text">
@@ -303,7 +290,7 @@
         if ($zins < 0) {
             $zins = 0;
         }
-        echo number_format($zins);
+        return number_format($zins);
     }
 
     function calcTragbarkeit($kaufpreis, $ek, $einkommen)
@@ -320,12 +307,12 @@
             if ($res > 100) {
                 $res = 100;
             }
-            echo number_format($res) . " % | Tragbarkeit nicht gegeben";
+            return number_format($res);
         } else {
             if ($res < 0) {
                 $res = 0;
             }
-            echo number_format($res) . " % | Tragbarkeit gegeben";
+            return number_format($res);
         }
     }
 
@@ -365,7 +352,7 @@
         }
 
         $gesammt = ($zins + $amortisationsbetrag + $unterhaltskosten) / 12;
-        echo number_format($gesammt);
+        return number_format($gesammt);
     }
 
     function autocompleteKaufpreis($ek)
@@ -373,13 +360,25 @@
         $kaufpreis = $ek * 5;
         return $kaufpreis;
     }
+    function addToDB()
+    {
+        $dbdir = 'C:/XAMPPREAL/htdocs/FormularSA/DB';
+        /* Datenbankdatei ausserhalb htdocs öffnen bzw. erzeugen */
+        $db = new SQLite3("$dbdir/SA_Lfimmo.db");
+        $sqlstr = "INSERT INTO TInformationen (InfoEK, InfoJahreseinkommen, InfoKaufpreis, InfoHypothekarzins, InfoAmortisation, InfoUnterhaltskosten, InfoMGesamtkosten, InfoVorname, InfoNachname, InfoEmail) VALUES";
+        $db->query($sqlstr . "('".$_POST['Ek']."','".$_POST['Jahreseinkommen']."','".$_POST['Kaufpreis']."','".calcZins($_POST['Kaufpreis'], $_POST['Ek'])."','".calcAmotisation($_POST['Kaufpreis'], $_POST['Ek'])."','".$_POST['Kaufpreis'] * 0.007."','".calcMonatlichegesammtkosten($_POST['Kaufpreis'], $_POST['Ek'])."','".$_POST['vorname']."','".$_POST['nachname']."','".$_POST['email']."');");
+        $db->close();
+    }
     ?>
+
     <div id="demo"></div>
 
 </body>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="Library/jquery-3.5.1.js"></script>
 <script src="js/script.js"></script>
 <script src="js/chart.js"></script>
+<!-- <script src="js/complete.js"></script> -->
+<script src="print.js"></script>
 
 </html>
