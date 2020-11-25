@@ -15,6 +15,7 @@
     <link href="stylesheet.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="print.css">
     <link href="stylePopUp.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/autonumeric@4.5.4"></script>
 </head>
 <nav>
     <img src="Pictures/logo.svg">
@@ -40,7 +41,7 @@
                             <i></i>
                         </div>
                     </div>
-                    <input type="number" id="ek" name="Ek" value="<?php echo $_POST['Ek'] ?>" />
+                    <input type="number" id="ek" name="Ek" required value="<?php echo $_POST['Ek'] ?>" />
 
                 </div>
 
@@ -53,7 +54,7 @@
                             <i></i>
                         </div>
                     </div>
-                    <input type="number" name="Jahreseinkommen" value="<?php echo $_POST['Jahreseinkommen'] ?>" />
+                    <input type="number" name="Jahreseinkommen" required value="<?php echo $_POST['Jahreseinkommen'] ?>" />
                 </div>
 
                 <div>
@@ -66,7 +67,7 @@
                         </div>
                     </div>
 
-                    <input type="number" id="price" name="Kaufpreis" value="<?php echo $_POST['Kaufpreis'] ?>" />
+                    <input type="number" id="price" name="Kaufpreis" required value="<?php echo $_POST['Kaufpreis'] ?>" />
                 </div>
                 <input type="submit" name="calc" id="calc" value="Ausrechnen" id="b1">
 
@@ -175,7 +176,7 @@
                 </div>
                 <input type="text" name="Result" value="<?php
                                                         if (isset($_POST['calc']) OR isset($_POST['addToDB'] )) {
-                                                            echo number_format(calcAmotisation($_POST['Kaufpreis'], $_POST['Ek'])) . " CHF";
+                                                            echo number_format(calcAmotisation($_POST['Kaufpreis'], $_POST['Ek']),2,".","'") . " CHF";
                                                         } ?>" readonly>
             </div>
             <div>
@@ -189,7 +190,7 @@
                 <input type="text" name="Result" value="<?php
                                                         if (isset($_POST['calc']) OR isset($_POST['addToDB'])) {
                                                             $nebenkosten = $_POST['Kaufpreis'] * 0.007;
-                                                            echo number_format($nebenkosten) . " CHF";
+                                                            echo number_format($nebenkosten,2,".","'") . " CHF";
                                                         } ?>" readonly>
 
             </div>
@@ -290,7 +291,7 @@
         if ($zins < 0) {
             $zins = 0;
         }
-        return number_format($zins);
+        return number_format($zins,2,".","'");
     }
 
     function calcTragbarkeit($kaufpreis, $ek, $einkommen)
@@ -307,12 +308,12 @@
             if ($res > 100) {
                 $res = 100;
             }
-            return number_format($res);
+            return number_format($res,2,".","'");
         } else {
             if ($res < 0) {
                 $res = 0;
             }
-            return number_format($res);
+            return number_format($res,2,".","'");
         }
     }
 
@@ -352,7 +353,7 @@
         }
 
         $gesammt = ($zins + $amortisationsbetrag + $unterhaltskosten) / 12;
-        return number_format($gesammt);
+        return number_format($gesammt,2,".","'");
     }
 
     function autocompleteKaufpreis($ek)
@@ -374,6 +375,7 @@
     <div id="demo"></div>
 
 </body>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="Library/jquery-3.5.1.js"></script>
 <script src="js/script.js"></script>

@@ -40,3 +40,10 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+
+new AutoNumeric('#input', {
+    currencySymbol: ' CHF',
+    decimalCharacter: ',',
+    digitGroupSeparator: "'",
+});
