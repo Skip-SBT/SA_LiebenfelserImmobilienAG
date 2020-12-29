@@ -15,11 +15,32 @@
     <link href="stylesheet.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="print.css">
     <link href="stylePopUp.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.jsdelivr.net/npm/autonumeric@4.5.4"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
 <nav>
-    <img src="Pictures/logo.svg">
+    <div id="mySidenav" class="sidenav">
+        <span href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</span>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Clients</a>
+        <a href="#">Contact</a>
+    </div>
 
+
+    <span style="font-size:60px;cursor:pointer; color:white; padding-left:20px;" onclick="openNav()">&#9776;</span>
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "650px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+
+    <img src="Pictures/logo.svg">
 </nav>
 <header>
     <img src="/Pictures/placeholder3.jpg" alt="placeholder house">
@@ -33,12 +54,14 @@
             <form action="index.php" method="POST" id="form">
 
                 <div>
-                    <h3>Eigenkapital</h3>
+                    <h3>Eigenmittel</h3>
                     <div class="tooltip"><img src="Pictures\info1.png">
                         <div class="right">
-                            <h3>Eigenkapital</h3>
-                            <p>Dolor sit amet, consectetur adipiscing elit.</p>
-                            <i></i>
+                            <p>Mindestens 20 Prozent müssen als Eigenkapital aufgebracht werden.</p>
+                            <br>
+                            <p>≥10% «Harte Eigenmittel» (Barmittel, Wertschriften, 3a, Lebensversicherungspolicen, Erbvorzüge/Schenkungen)<P>
+                                    <br>
+                                    <p>≤10% «Weiche Eigenmittel» (PK-Verpfändung* oder PK-Bezug)</p>
                         </div>
                     </div>
                     <input type="number" id="ek" name="Ek" required value="<?php echo $_POST['Ek'] ?>" />
@@ -49,24 +72,14 @@
                     <h3>Jahreseinkommen</h3>
                     <div class="tooltip"><img src="Pictures\info1.png">
                         <div class="right">
-                            <h3>Jahreseinkommen</h3>
-                            <p>Dolor sit amet, consectetur adipiscing elit.</p>
-                            <i></i>
+                            <p>Einkommen, dass während eines Jahres ohne Steuerabzug erzielt wird.</p>
                         </div>
                     </div>
                     <input type="number" name="Jahreseinkommen" required value="<?php echo $_POST['Jahreseinkommen'] ?>" />
                 </div>
 
                 <div>
-                    <h3>Kaufpreis / Total Investition</h3>
-                    <div class="tooltip"><img src="Pictures\info1.png">
-                        <div class="right">
-                            <h3>Kaufpreis/Total Investition</h3>
-                            <p>Dolor sit amet, consectetur adipiscing elit.</p>
-                            <i></i>
-                        </div>
-                    </div>
-
+                    <h3>Kaufpreis</h3>
                     <input type="number" id="price" name="Kaufpreis" required value="<?php echo $_POST['Kaufpreis'] ?>" />
                 </div>
                 <input type="submit" name="calc" id="calc" value="Ausrechnen" id="b1">
@@ -74,20 +87,20 @@
                 <button type="button" id="popup" name="PopUp">Detailiertes PDF</button>
 
 
-           
-            <div id="myModal" class="modal">
 
-                <!-- Modal content -->
-                <div class="modal-content">
-                    <span class="close">&times;</span>
+                <div id="myModal" class="modal">
 
-                    <head>
-                        <h1>Detailiertes PDF drucken</h1>
-                    </head>
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
 
-                    <body>
-                        <p>Um ein Detailiertes PDF zu generieren müssen Sie unten im Formular Ihre Kontaktdaten angeben.</p>
-                        
+                        <head>
+                            <h1>Detailiertes PDF drucken</h1>
+                        </head>
+
+                        <body>
+                            <p>Um ein Detailiertes PDF zu generieren müssen Sie unten im Formular Ihre Kontaktdaten angeben.</p>
+
                             <h3>Vorname</h3>
                             <input type="text" name="vorname" />
                             <h3>Nachname</h3>
@@ -95,10 +108,10 @@
                             <h3>e-Mail</h3>
                             <input type="text" name="email" />
                             <button type="submit" name="addToDB" value="2">Drucken</button>
-                        
-                    </body>
+
+                        </body>
+                    </div>
                 </div>
-            </div>
             </form>
 
         </div>
@@ -106,7 +119,7 @@
         if (isset($_POST['addToDB'])) {
             addToDB();
         }
-      
+
         ?>
 
 
@@ -118,7 +131,7 @@
                                                                                                             echo "Belehnung zu hoch";
                                                                                                         }
                                                                                                     } ?></h2>
-            <canvas id="myChart" width="400" height="400"></canvas>
+            <canvas id="myChart" class="chart" width="400" height="400"></canvas>
         </div>
 
         <div class="results">
@@ -146,7 +159,7 @@
                 <canvas id="Chart1" width="400px" height="50px"></canvas>
             </div>
             <input type="hidden" id="tragbarkeit" name="Result" value="<?php
-                                                                        if (isset($_POST['calc']) OR isset($_POST['addToDB'])) {
+                                                                        if (isset($_POST['calc']) or isset($_POST['addToDB'])) {
                                                                             echo calcTragbarkeit($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
                                                                         } ?>" readonly>
 
@@ -159,7 +172,7 @@
                     </div>
                 </div>
                 <input type="text" name="hypo" value="<?php
-                                                        if (isset($_POST['calc']) OR isset($_POST['addToDB'])) {
+                                                        if (isset($_POST['calc']) or isset($_POST['addToDB'])) {
                                                             $zins = calcZins($_POST['Kaufpreis'], $_POST['Ek']);
                                                             echo $zins . " CHF";
                                                         } ?>" readonly>
@@ -175,8 +188,8 @@
                     </div>
                 </div>
                 <input type="text" name="Result" value="<?php
-                                                        if (isset($_POST['calc']) OR isset($_POST['addToDB'] )) {
-                                                            echo number_format(calcAmotisation($_POST['Kaufpreis'], $_POST['Ek']),2,".","'") . " CHF";
+                                                        if (isset($_POST['calc']) or isset($_POST['addToDB'])) {
+                                                            echo number_format(calcAmotisation($_POST['Kaufpreis'], $_POST['Ek']), 2, ".", "'") . " CHF";
                                                         } ?>" readonly>
             </div>
             <div>
@@ -188,9 +201,9 @@
                     </div>
                 </div>
                 <input type="text" name="Result" value="<?php
-                                                        if (isset($_POST['calc']) OR isset($_POST['addToDB'])) {
+                                                        if (isset($_POST['calc']) or isset($_POST['addToDB'])) {
                                                             $nebenkosten = $_POST['Kaufpreis'] * 0.007;
-                                                            echo number_format($nebenkosten,2,".","'") . " CHF";
+                                                            echo number_format($nebenkosten, 2, ".", "'") . " CHF";
                                                         } ?>" readonly>
 
             </div>
@@ -203,7 +216,7 @@
                     </div>
                 </div>
                 <input type="text" name="Result" value="<?php
-                                                        if (isset($_POST['calc']) OR isset($_POST['addToDB'])) {
+                                                        if (isset($_POST['calc']) or isset($_POST['addToDB'])) {
                                                             echo calcMonatlichegesammtkosten($_POST['Kaufpreis'], $_POST['Ek']) . " CHF";
                                                         } ?>" readonly>
 
@@ -219,7 +232,7 @@
     </div>
 
     <div class="text">
-        <h2>FRAGEN ZUM HYPOTHEKENRECHNER UND TRAGBARKEIT</h2>
+        <h2>Fragen zum Hypothekenrechner und Tragbarkeit</h2>
 
         <button type="button" class="collapsible">Die Belastung ist zu hoch. Wie kann ich meine Eigenmittel erhöhen?</button>
         <div class="content">
@@ -291,7 +304,7 @@
         if ($zins < 0) {
             $zins = 0;
         }
-        return number_format($zins,2,".","'");
+        return number_format($zins, 2, ".", "'");
     }
 
     function calcTragbarkeit($kaufpreis, $ek, $einkommen)
@@ -308,12 +321,12 @@
             if ($res > 100) {
                 $res = 100;
             }
-            return number_format($res,2,".","'");
+            return number_format($res, 2, ".", "'");
         } else {
             if ($res < 0) {
                 $res = 0;
             }
-            return number_format($res,2,".","'");
+            return number_format($res, 2, ".", "'");
         }
     }
 
@@ -353,7 +366,7 @@
         }
 
         $gesammt = ($zins + $amortisationsbetrag + $unterhaltskosten) / 12;
-        return number_format($gesammt,2,".","'");
+        return number_format($gesammt, 2, ".", "'");
     }
 
     function autocompleteKaufpreis($ek)
@@ -367,7 +380,7 @@
         /* Datenbankdatei ausserhalb htdocs öffnen bzw. erzeugen */
         $db = new SQLite3("$dbdir/SA_Lfimmo.db");
         $sqlstr = "INSERT INTO TInformationen (InfoEK, InfoJahreseinkommen, InfoKaufpreis, InfoHypothekarzins, InfoAmortisation, InfoUnterhaltskosten, InfoMGesamtkosten, InfoVorname, InfoNachname, InfoEmail) VALUES";
-        $db->query($sqlstr . "('".$_POST['Ek']."','".$_POST['Jahreseinkommen']."','".$_POST['Kaufpreis']."','".calcZins($_POST['Kaufpreis'], $_POST['Ek'])."','".calcAmotisation($_POST['Kaufpreis'], $_POST['Ek'])."','".$_POST['Kaufpreis'] * 0.007."','".calcMonatlichegesammtkosten($_POST['Kaufpreis'], $_POST['Ek'])."','".$_POST['vorname']."','".$_POST['nachname']."','".$_POST['email']."');");
+        $db->query($sqlstr . "('" . $_POST['Ek'] . "','" . $_POST['Jahreseinkommen'] . "','" . $_POST['Kaufpreis'] . "','" . calcZins($_POST['Kaufpreis'], $_POST['Ek']) . "','" . calcAmotisation($_POST['Kaufpreis'], $_POST['Ek']) . "','" . $_POST['Kaufpreis'] * 0.007 . "','" . calcMonatlichegesammtkosten($_POST['Kaufpreis'], $_POST['Ek']) . "','" . $_POST['vorname'] . "','" . $_POST['nachname'] . "','" . $_POST['email'] . "');");
         $db->close();
     }
     ?>
@@ -375,7 +388,6 @@
     <div id="demo"></div>
 
 </body>
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="Library/jquery-3.5.1.js"></script>
 <script src="js/script.js"></script>
