@@ -380,7 +380,7 @@
         /* Datenbankdatei ausserhalb htdocs öffnen bzw. erzeugen */
         $db = new SQLite3("$dbdir/SA_Lfimmo.db");
         $sqlstr = "INSERT INTO TInformationen (InfoEK, InfoJahreseinkommen, InfoKaufpreis, InfoHypothekarzins, InfoAmortisation, InfoUnterhaltskosten, InfoMGesamtkosten, InfoVorname, InfoNachname, InfoEmail) VALUES";
-        $db->query($sqlstr . "('" . $_POST['Ek'] . "','" . $_POST['Jahreseinkommen'] . "','" . $_POST['Kaufpreis'] . "','" . calcZins($_POST['Kaufpreis'], $_POST['Ek']) . "','" . calcAmotisation($_POST['Kaufpreis'], $_POST['Ek']) . "','" . $_POST['Kaufpreis'] * 0.007 . "','" . calcMonatlichegesammtkosten($_POST['Kaufpreis'], $_POST['Ek']) . "','" . $_POST['vorname'] . "','" . $_POST['nachname'] . "','" . $_POST['email'] . "');");
+        $db->query($sqlstr . "('".$_POST['Ek']."','".$_POST['Jahreseinkommen']."','".$_POST['Kaufpreis']."','".calcZins($_POST['Kaufpreis'], $_POST['Ek'])."','".calcAmotisation($_POST['Kaufpreis'], $_POST['Ek'])."','".$_POST['Kaufpreis'] * 0.007."','".calcMonatlichegesammtkosten($_POST['Kaufpreis'], $_POST['Ek'])."','".$_POST['vorname']."','".$_POST['nachname']."','".$_POST['email']."');");
         $db->close();
     }
     ?>
