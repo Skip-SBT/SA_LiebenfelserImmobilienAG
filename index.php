@@ -7,7 +7,7 @@
 -->
 <html>
 <?php
-
+error_reporting(E_ERROR | E_PARSE);
 ?>
 
 <head>
@@ -95,31 +95,33 @@
                         <span class="close">&times;</span>
 
                         <head>
-                            <h1>Detailiertes PDF drucken</h1>
+                            <h1>Detailierte Angaben</h1>
                         </head>
 
                         <body>
-                            <p>Um ein Detailiertes PDF zu generieren müssen Sie unten im Formular Ihre Kontaktdaten angeben.</p>
-
+                            <p>Bitte Kontaktinformationen ausfüllen für Detailinformationen als PDF.</p>
                             <h3>Vorname</h3>
                             <input type="text" name="vorname" />
                             <h3>Nachname</h3>
                             <input type="text" name="nachname" />
                             <h3>e-Mail</h3>
                             <input type="text" name="email" />
-                            <button type="submit" name="addToDB" value="2">Drucken</button>
-
+                            <button type="submit" id="print" name="addToDB" value="2">Drucken</button>
                         </body>
                     </div>
                 </div>
             </form>
 
+
         </div>
         <?php
         if (isset($_POST['addToDB'])) {
-            addToDB();
+            addToDB(); ?>
+            <script>
+                window.location = "src/php/print.php";
+            </script>
+        <?php
         }
-
         ?>
 
 
@@ -380,19 +382,19 @@
         /* Datenbankdatei ausserhalb htdocs öffnen bzw. erzeugen */
         $db = new SQLite3("$dbdir/SA_Lfimmo.db");
         $sqlstr = "INSERT INTO TInformationen (InfoEK, InfoJahreseinkommen, InfoKaufpreis, InfoHypothekarzins, InfoAmortisation, InfoUnterhaltskosten, InfoMGesamtkosten, InfoVorname, InfoNachname, InfoEmail) VALUES";
-        $db->query($sqlstr . "('".$_POST['Ek']."','".$_POST['Jahreseinkommen']."','".$_POST['Kaufpreis']."','".calcZins($_POST['Kaufpreis'], $_POST['Ek'])."','".calcAmotisation($_POST['Kaufpreis'], $_POST['Ek'])."','".$_POST['Kaufpreis'] * 0.007."','".calcMonatlichegesammtkosten($_POST['Kaufpreis'], $_POST['Ek'])."','".$_POST['vorname']."','".$_POST['nachname']."','".$_POST['email']."');");
+        $db->query($sqlstr . "('" . $_POST['Ek'] . "','" . $_POST['Jahreseinkommen'] . "','" . $_POST['Kaufpreis'] . "','" . calcZins($_POST['Kaufpreis'], $_POST['Ek']) . "','" . calcAmotisation($_POST['Kaufpreis'], $_POST['Ek']) . "','" . $_POST['Kaufpreis'] * 0.007 . "','" . calcMonatlichegesammtkosten($_POST['Kaufpreis'], $_POST['Ek']) . "','" . $_POST['vorname'] . "','" . $_POST['nachname'] . "','" . $_POST['email'] . "');");
         $db->close();
     }
     ?>
 
     <div id="demo"></div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="Library/jquery-3.5.1.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/chart.js"></script>
+    <!-- <script src="js/complete.js"></script> -->
+    <script src="print.js"></script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script src="Library/jquery-3.5.1.js"></script>
-<script src="js/script.js"></script>
-<script src="js/chart.js"></script>
-<!-- <script src="js/complete.js"></script> -->
-<script src="print.js"></script>
 
 </html>
