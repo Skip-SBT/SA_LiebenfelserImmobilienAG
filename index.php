@@ -7,6 +7,12 @@
 -->
 <html>
 <?php
+// Import PHPMailer classes into the global namespace
+// These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 error_reporting(E_ERROR | E_PARSE);
 ?>
 
@@ -121,6 +127,20 @@ error_reporting(E_ERROR | E_PARSE);
                 window.location = "src/php/print.php";
             </script>
         <?php
+            // Load Composer's autoloader
+            require 'Mailer/vendor/autoload.php';
+            // Instantiation and passing `true` enables exceptions
+            $email = new PHPMailer(true);
+            $email->SetFrom('maximilian.hubrath@gmail.com', 'maxi'); //Name is optional
+            $email->Subject   = 'DATEN VON IMMO.CALC';
+            $email->Body      = $bodytext;
+            $email->AddAddress('maximilian.hubrath@stud.kftg.ch');
+
+            $file_to_attach = 'docs/dataSheet.pdf';
+
+            $email->AddAttachment($file_to_attach, 'dataSheet.pdf');
+
+            return $email->Send();
         }
         ?>
 
@@ -277,8 +297,10 @@ error_reporting(E_ERROR | E_PARSE);
                 So steht Ihr Eigenheim auf einem sicheren Fundament – was immer auch kommt.</p>
         </div>
     </div>
+    <?php sendPDF(); ?>
 
     <?php
+
     function calcBelehnung($kaufpreis, $ek)
     {
         if ($kaufpreis * 0.2 <= $ek) {
@@ -287,11 +309,11 @@ error_reporting(E_ERROR | E_PARSE);
             $check = false;
         }
         $hypo = 100 - 100 / $kaufpreis * $ek;
-        $eig = 100 / $kaufpreis * $ek;
 
         if ($hypo < 0) {
             $hypo = 0;
         }
+        $eig = 100 / $kaufpreis * $ek;
 
         if ($check) {
             return (round($hypo));
@@ -385,6 +407,32 @@ error_reporting(E_ERROR | E_PARSE);
         $db->query($sqlstr . "('" . $_POST['Ek'] . "','" . $_POST['Jahreseinkommen'] . "','" . $_POST['Kaufpreis'] . "','" . calcZins($_POST['Kaufpreis'], $_POST['Ek']) . "','" . calcAmotisation($_POST['Kaufpreis'], $_POST['Ek']) . "','" . $_POST['Kaufpreis'] * 0.007 . "','" . calcMonatlichegesammtkosten($_POST['Kaufpreis'], $_POST['Ek']) . "','" . $_POST['vorname'] . "','" . $_POST['nachname'] . "','" . $_POST['email'] . "');");
         $db->close();
     }
+    function sendPDF()
+    {
+        require('phpToPDF.php');
+
+        //It is possible to include a file that outputs html and store it in a variable 
+        //using output buffering.
+        ob_start();
+        include('src/php/print.php');
+        $my_html = ob_get_clean();
+
+        //Set Your Options -- we are saving the PDF as 'my_filename.pdf' to a 'my_pdfs' folder
+        $pdf_options = array(
+            "source_type" => 'html',
+            "source" => $my_html,
+            "action" => 'save',
+            "save_directory" => 'docs',
+            "file_name" => 'dataSheet.pdf'
+        );
+
+        //Code to generate PDF file from options above
+        phptopdf($pdf_options);
+    }
+    ?>
+    <?php
+
+
     ?>
 
     <div id="demo"></div>
