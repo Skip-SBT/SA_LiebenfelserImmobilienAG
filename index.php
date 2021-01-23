@@ -9,11 +9,18 @@
 <?php
 // Import PHPMailer classes into the global namespace
 // These must be at the top of your script, not inside a function
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
+
 
 error_reporting(E_ERROR | E_PARSE);
+session_start();
+
+
+if (!isset($_SESSION['anzahlbesuche'])) {
+    $_SESSION['anzahlbesuche'] = 1;
+} else {
+    $_SESSION['anzahlbesuche']++;
+}
+
 ?>
 
 <head>
@@ -27,9 +34,7 @@ error_reporting(E_ERROR | E_PARSE);
 <nav>
     <div id="mySidenav" class="sidenav">
         <span href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</span>
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Clients</a>
+        <a href="#">Home</a>
         <a href="#">Contact</a>
     </div>
 
@@ -65,9 +70,10 @@ error_reporting(E_ERROR | E_PARSE);
                         <div class="right">
                             <p>Mindestens 20 Prozent müssen als Eigenkapital aufgebracht werden.</p>
                             <br>
-                            <p>≥10% «Harte Eigenmittel» (Barmittel, Wertschriften, 3a, Lebensversicherungspolicen, Erbvorzüge/Schenkungen)<P>
-                                    <br>
-                                    <p>≤10% «Weiche Eigenmittel» (PK-Verpfändung* oder PK-Bezug)</p>
+                            <p>≥10% «Harte Eigenmittel» (Barmittel, Wertschriften, 3a, Lebensversicherungspolicen, Erbvorzüge/Schenkungen)
+                            <P>
+                                <br>
+                            <p>≤10% «Weiche Eigenmittel» (PK-Verpfändung* oder PK-Bezug)</p>
                         </div>
                     </div>
                     <input type="number" id="ek" name="Ek" required value="<?php echo $_POST['Ek'] ?>" />
@@ -81,7 +87,7 @@ error_reporting(E_ERROR | E_PARSE);
                             <p>Einkommen, dass während eines Jahres ohne Steuerabzug erzielt wird.</p>
                         </div>
                     </div>
-                    <input type="number" name="Jahreseinkommen" required value="<?php echo $_POST['Jahreseinkommen'] ?>" />
+                    <input type="number" name="Jahreseinkommen" id="Jek" required value="<?php echo $_POST['Jahreseinkommen'] ?>" />
                 </div>
 
                 <div>
@@ -94,53 +100,62 @@ error_reporting(E_ERROR | E_PARSE);
 
 
 
-                <div id="myModal" class="modal">
 
-                    <!-- Modal content -->
-                    <div class="modal-content">
-                        <span class="close">&times;</span>
-
-                        <head>
-                            <h1>Detailierte Angaben</h1>
-                        </head>
-
-                        <body>
-                            <p>Bitte Kontaktinformationen ausfüllen für Detailinformationen als PDF.</p>
-                            <h3>Vorname</h3>
-                            <input type="text" name="vorname" />
-                            <h3>Nachname</h3>
-                            <input type="text" name="nachname" />
-                            <h3>e-Mail</h3>
-                            <input type="text" name="email" />
-                            <button type="submit" id="print" name="addToDB" value="2">Drucken</button>
-                        </body>
-                    </div>
-                </div>
             </form>
+            <form action="index.php" method="POST">
+            <div id="myModal" class="modal">
 
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+
+                    <head>
+                        <h1>Detailierte Angaben</h1>
+                    </head>
+
+                    <body>
+                        <p>Bitte Kontaktinformationen ausfüllen für Detailinformationen als PDF.</p>
+                        <h3>Vorname</h3>
+                        <input type="text" name="vorname" required></input>
+                        <h3>Nachname</h3>
+                        <input type="text" name="nachname" required></input>
+                        <h3>e-Mail</h3>
+                        <input type="text" name="email" required></input>
+
+                        <input type="hidden" id="Mek" name="Ek1"  value="<?php echo $_POST['Ek'] ?>"></input>
+                        <input type="hidden" id="Mprice" name="Kaufpreis1"value=" <?php echo $_POST['Kaufpreis'] ?>"></input>
+                        <input type="hidden" id="Mjek" name="Jahreseinkommen1"value=" <?php echo $_POST['Jahreseinkommen']?>"></input>
+
+                        <button type="submit" id="print" name="addToDB" value="2">Drucken</button>
+                    </body>
+                </div>
+            </div>
+            </form>
 
         </div>
         <?php
+        
         if (isset($_POST['addToDB'])) {
+            initializeSession($_POST['Kaufpreis1'], $_POST['Ek1'], $_POST['Jahreseinkommen1'], $_POST['vorname'], $_POST['nachname'], $_POST['email']);
             addToDB(); ?>
             <script>
                 window.location = "src/php/print.php";
             </script>
         <?php
-            // Load Composer's autoloader
-            require 'Mailer/vendor/autoload.php';
-            // Instantiation and passing `true` enables exceptions
-            $email = new PHPMailer(true);
-            $email->SetFrom('maximilian.hubrath@gmail.com', 'maxi'); //Name is optional
-            $email->Subject   = 'DATEN VON IMMO.CALC';
-            $email->Body      = $bodytext;
-            $email->AddAddress('maximilian.hubrath@stud.kftg.ch');
+            // // Load Composer's autoloader
+            // require 'Mailer/vendor/autoload.php';
+            // // Instantiation and passing `true` enables exceptions
+            // $email = new PHPMailer(true);
+            // $email->SetFrom('maximilian.hubrath@gmail.com', 'maxi'); //Name is optional
+            // $email->Subject   = 'DATEN VON IMMO.CALC';
+            // $email->Body      = $bodytext;
+            // $email->AddAddress('maximilian.hubrath@stud.kftg.ch');
 
-            $file_to_attach = 'docs/dataSheet.pdf';
+            // $file_to_attach = 'docs/dataSheet.pdf';
 
-            $email->AddAttachment($file_to_attach, 'dataSheet.pdf');
+            // $email->AddAttachment($file_to_attach, 'dataSheet.pdf');
 
-            return $email->Send();
+            // return $email->Send();
         }
         ?>
 
@@ -297,7 +312,7 @@ error_reporting(E_ERROR | E_PARSE);
                 So steht Ihr Eigenheim auf einem sicheren Fundament – was immer auch kommt.</p>
         </div>
     </div>
-    <?php sendPDF(); ?>
+   
 
     <?php
 
@@ -381,7 +396,7 @@ error_reporting(E_ERROR | E_PARSE);
         $hypo = 100 - 100 / $kaufpreis * $ek;
         $amortisationsbetrag = calcAmotisation($_POST['Kaufpreis'], $_POST['Ek']); // Only works if numberFormat isn't in function
         $zins =  ($kaufpreis - $ek) * 0.05;
-        $unterhaltskosten = $kaufpreis * 0.01;
+        $unterhaltskosten = $kaufpreis * 0.007;
         if ($zins < 0) {
             $zins = 0;
         }
@@ -404,36 +419,35 @@ error_reporting(E_ERROR | E_PARSE);
         /* Datenbankdatei ausserhalb htdocs öffnen bzw. erzeugen */
         $db = new SQLite3("$dbdir/SA_Lfimmo.db");
         $sqlstr = "INSERT INTO TInformationen (InfoEK, InfoJahreseinkommen, InfoKaufpreis, InfoHypothekarzins, InfoAmortisation, InfoUnterhaltskosten, InfoMGesamtkosten, InfoVorname, InfoNachname, InfoEmail) VALUES";
-        $db->query($sqlstr . "('" . $_POST['Ek'] . "','" . $_POST['Jahreseinkommen'] . "','" . $_POST['Kaufpreis'] . "','" . calcZins($_POST['Kaufpreis'], $_POST['Ek']) . "','" . calcAmotisation($_POST['Kaufpreis'], $_POST['Ek']) . "','" . $_POST['Kaufpreis'] * 0.007 . "','" . calcMonatlichegesammtkosten($_POST['Kaufpreis'], $_POST['Ek']) . "','" . $_POST['vorname'] . "','" . $_POST['nachname'] . "','" . $_POST['email'] . "');");
+        $db->query($sqlstr . "('" . $_SESSION['Eigenkapital'] . "','" . $_SESSION['Einnahmen'] . "','" . $_SESSION['Kaufpreis'] . "','" . calcZins($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital'] ) . "','" . calcAmotisation($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital'] ) . "','" . $_SESSION['Kaufpreis'] * 0.007 . "','" . calcMonatlichegesammtkosten($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital'] ) . "','" . $_POST['vorname'] . "','" . $_POST['nachname'] . "','" . $_POST['email'] . "');");
         $db->close();
-    }
-    function sendPDF()
-    {
+        function sendPDF()
+        {
         require('phpToPDF.php');
 
         //It is possible to include a file that outputs html and store it in a variable 
-        //using output buffering.
-        ob_start();
-        include('src/php/print.php');
-        $my_html = ob_get_clean();
-
-        //Set Your Options -- we are saving the PDF as 'my_filename.pdf' to a 'my_pdfs' folder
-        $pdf_options = array(
-            "source_type" => 'html',
-            "source" => $my_html,
-            "action" => 'save',
-            "save_directory" => 'docs',
-            "file_name" => 'dataSheet.pdf'
-        );
-
-        //Code to generate PDF file from options above
-        phptopdf($pdf_options);
+    }
+        
+    }
+    //Session variables for Print page
+    function initializeSession($kaufpreis, $ek, $einkommen, $vorname, $nachname, $mail)
+    {
+        $_SESSION['Kaufpreis'] = $kaufpreis;
+        $_SESSION['Eigenkapital'] = $ek;
+        $_SESSION['Hypothek1'] = $kaufpreis * 0.66;
+        $_SESSION['Hypothek2'] = calcAmotisation($kaufpreis, $ek);
+        $_SESSION['TotalBankFin'] = $_SESSION['Hypothek1'] + $_SESSION['Hypothek2'];
+        $_SESSION['NebenK'] = $kaufpreis * 0.007;
+        $_SESSION['TotalBelastungJ'] = ($_SESSION['TotalBankFin'] * 0.05) + $_SESSION['NebenK'];
+        $_SESSION['Einnahmen'] = $einkommen;
+        $_SESSION['Tragbarkeit'] = calcTragbarkeit($kaufpreis, $ek, $einkommen);
+        $_SESSION['Finnanzierung'] = 100-calcBelehnung($kaufpreis, $ek);
+        $_SESSION['Vorname'] = $vorname;
+        $_SESSION['Nachname'] = $nachname;
+        $_SESSION['Email'] = $mail;
     }
     ?>
-    <?php
 
-
-    ?>
 
     <div id="demo"></div>
 

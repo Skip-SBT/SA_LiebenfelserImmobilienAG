@@ -18,6 +18,24 @@ for (i = 0; i < coll.length; i++) {
 // Get the modal
 var modal = document.getElementById("myModal");
 
+//Mirror 3 hidden input fields in Modal form
+var input1 = document.getElementById('ek');
+var input2 = document.getElementById('price');
+var input3 = document.getElementById('Jek');
+var output1 = document.getElementById('Mek');
+var output2 = document.getElementById('Mprice');
+var output3 = document.getElementById('Mjek');
+var button = document.getElementById('calc');
+button.addEventListener("click", mirror);
+input1.addEventListener("change", mirror);
+input2.addEventListener("change", mirror);
+input3.addEventListener("change", mirror);
+
+function mirror() {
+    output1.value = input1.value;
+    output2.value = input2.value;
+    output3.value = input3.value;
+}
 // Get the button that opens the modal
 var btn = document.getElementById("popup");
 

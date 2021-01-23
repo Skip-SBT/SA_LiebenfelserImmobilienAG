@@ -96,9 +96,16 @@ h5 {
 }
 
 .pie {
-    padding-top: 20px;
+    padding-top: 30px;
     width: 200px !important;
     height: 100px !important;
+}
+
+.pie2 {
+    padding-top: 30px;
+    width: 200px !important;
+    height: 100px !important;
+    padding-left: 80px;
 }
 
 footer {
