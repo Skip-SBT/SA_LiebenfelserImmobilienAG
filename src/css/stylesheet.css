@@ -1,0 +1,338 @@
+/*
+Filename       : stylesheet
+
+    Created on : 05.07.2020, 22:48:58
+    Author     : Maximilian Hubrath
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Questrial", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: 400;
+    color: #383434;
+    letter-spacing: 0.23px;
+    /* line-height: 27px; */
+}
+
+
+/*--- input styles ---*/
+
+
+/* Chrome, Safari, Edge, Opera */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+/* Firefox */
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+
+/* --- header --- */
+
+header {
+    top: 0;
+    width: 100%;
+}
+
+header img {
+    width: 100%;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 7vw;
+    position: absolute;
+    bottom: 100px;
+    right: 25%;
+    font-family: "Questrial", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: 370;
+    color: #ffffff;
+    letter-spacing: 0.21px;
+    line-height: 55px;
+}
+
+
+/* --- nav --- */
+
+nav {
+    z-index: 5;
+    height: 11vh;
+    background-color: #c7bb9f;
+    opacity: 10;
+    position: fixed;
+    width: 100%;
+}
+
+nav img {
+    overflow: hidden;
+    float: right;
+    height: 7em;
+    padding-right: 2%;
+    max-width: 100%;
+    margin-top: -0.3%;
+}
+
+
+/* The side navigation menu */
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 60px;
+    background-color: #c7bb9f;
+    transition: all 0.3s ease-in-out;
+}
+
+
+/* The navigation menu links */
+
+.sidenav a {
+    padding: 17px 80px 8px 100px;
+    text-decoration: none;
+    font-size: 25px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+}
+
+
+/* When you mouse over the navigation links, change their color */
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+
+/* Position and style the close button (top right corner) */
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    font-size: 60px;
+    color: #f1f1f1;
+    cursor: pointer;
+}
+
+
+/* --- body --- */
+
+body {
+    background-color: #f7f4ed;
+}
+
+
+/* --- main --- */
+
+.main {
+    height: 75vh;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    padding: 30px;
+    margin-top: 7%;
+}
+
+.input {
+    min-width: 260px;
+}
+
+.results {
+    min-width: 260px;
+    max-width: 500px;
+}
+
+form {
+    position: relative;
+}
+
+#bel {
+    visibility: hidden;
+}
+
+input {
+    width: 100%;
+}
+
+.text {
+    width: 75%;
+    margin: auto;
+    margin-bottom: 5%;
+    padding-top: 0%;
+    text-justify: auto;
+}
+
+.collapsible {
+    background-color: #c7bb9f;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+.collapsible:after {
+    content: '\002B';
+    color: #777;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+.active,
+.collapsible:hover {
+    background-color: lightgray;
+}
+
+.active::after {
+    content: "\2212";
+}
+
+.content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f7f4ed;
+}
+
+p {
+    font-weight: 400;
+    font-size: 16px;
+    color: #383434;
+    letter-spacing: 0.23px;
+    line-height: 27px;
+}
+
+input[type=submit],
+button {
+    background-color: #c7bb9f;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+input[type=text],
+input[type=email],
+input[type=number],
+select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1.1em;
+    text-justify: auto;
+}
+
+h2 {
+    text-align: center;
+}
+
+.graph_container {
+    display: block;
+}
+
+.input h3,
+.results h3 {
+    float: left;
+}
+
+.results h2 {
+    float: left;
+}
+
+.results svg {
+    float: left;
+    text-align: center;
+    margin-top: 0;
+}
+
+.tooltip {
+    position: relative;
+    text-align: left;
+    float: left;
+    margin-left: 3%;
+}
+
+.tooltip .right {
+    min-width: 200px;
+    max-width: 400px;
+    top: 50%;
+    left: 100%;
+    margin-left: 20px;
+    transform: translate(0, -50%);
+    padding: 10px 20px;
+    color: #444444;
+    background-color: #EEEEEE;
+    font-weight: normal;
+    font-size: 13px;
+    border-radius: 8px;
+    position: absolute;
+    z-index: 99999999;
+    box-sizing: border-box;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.8s;
+}
+
+.tooltip:hover .right {
+    visibility: visible;
+    opacity: 1;
+}
+
+.tooltip .right i {
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -12px;
+    width: 12px;
+    height: 24px;
+    overflow: hidden;
+}
+
+.tooltip img {
+    width: 20px;
+    opacity: .7;
+}
+
+.tooltip .right i::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    left: 0;
+    top: 50%;
+    transform: translate(50%, -50%) rotate(-45deg);
+    background-color: #EEEEEE;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+}
+
+@media only screen and (max-width:620px) {
+    /* For mobile phones: */
+    .chart {
+        width: 100%;
+        float: left;
+    }
+}

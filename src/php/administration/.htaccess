@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "restricted area"
+AuthUserFile "C:/XAMPPREAL/htdocs/FormularSA/src/php/administration/.htpasswd"
+require valid-user

@@ -8,107 +8,136 @@
 <html>
 <?php
 
+
+error_reporting(E_ERROR | E_PARSE);
+session_start();
+
+
+if (!isset($_SESSION['anzahlbesuche'])) {
+    $_SESSION['anzahlbesuche'] = 1;
+} else {
+    $_SESSION['anzahlbesuche']++;
+}
+
 ?>
 
-<head>
+<head id="Header">
     <title>Hypothekenrechner – Liebenfelser Immobilien AG</title>
-    <link href="stylesheet.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="print.css">
-    <link href="stylePopUp.css" rel="stylesheet" type="text/css" />
+    <link href="/src/css/stylesheet.css" rel="stylesheet" type="text/css" />
+    <link href="/src/css/stylePopUp.css" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
-<nav>
+
+<nav id="nav">
+    <!-- inside of the navigation menu -->
+    <div id="mySidenav" class="sidenav">
+        <span href="javascript:void(0)" class="closebtn" id="navButtonC" onclick="closeNav()">&times;</span>
+        <a href="https://lf-immo.ch/">Home</a>
+        <a href="https://lf-immo.ch/kontakt/">Contact</a>
+    </div>
+
+    <!-- Burger menu -->
+    <span style="font-size:60px;cursor:pointer; color:white; padding-left:20px;" id="navButtonO" onclick="openNav()">&#9776;</span>
+
+    <!-- Liebenfelser Logo -->
     <img src="Pictures/logo.svg">
 
 </nav>
+
 <header>
     <img src="/Pictures/placeholder3.jpg" alt="placeholder house">
     <h1>Modellrechnung</h1>
 </header>
 
-<body onLoad="window.location ='#main'">
+<body id="body" onLoad="window.location ='#main'">
     <div id="main" class="main">
-        <!-- input -->
+
+        <!-- Three input field. Values from them are yoused to calculate and draw the charts. -->
         <div class="input">
             <form action="index.php" method="POST" id="form">
-
                 <div>
-                    <h3>Eigenkapital</h3>
+                    <h3>Eigenmittel</h3>
                     <div class="tooltip"><img src="Pictures\info1.png">
                         <div class="right">
-                            <h3>Eigenkapital</h3>
-                            <p>Dolor sit amet, consectetur adipiscing elit.</p>
-                            <i></i>
+                            <p>Mindestens 20 Prozent müssen als Eigenkapital aufgebracht werden.</p>
+                            <br>
+                            <p>≥10% «Harte Eigenmittel» (Barmittel, Wertschriften, 3a, Lebensversicherungspolicen, Erbvorzüge/Schenkungen)
+                            <P>
+                                <br>
+                            <p>≤10% «Weiche Eigenmittel» (PK-Verpfändung* oder PK-Bezug)</p>
                         </div>
                     </div>
-                    <input type="number" id="ek" name="Ek" value="<?php echo $_POST['Ek'] ?>" />
-
+                    <input type="number" id="ek" name="Ek" required value="<?php echo $_POST['Ek'] ?>" />
                 </div>
 
                 <div>
                     <h3>Jahreseinkommen</h3>
                     <div class="tooltip"><img src="Pictures\info1.png">
                         <div class="right">
-                            <h3>Jahreseinkommen</h3>
-                            <p>Dolor sit amet, consectetur adipiscing elit.</p>
-                            <i></i>
+                            <p>Einkommen, dass während eines Jahres ohne Steuerabzug erzielt wird.</p>
                         </div>
                     </div>
-                    <input type="number" name="Jahreseinkommen" value="<?php echo $_POST['Jahreseinkommen'] ?>" />
+                    <input type="number" name="Jahreseinkommen" id="Jek" required value="<?php echo $_POST['Jahreseinkommen'] ?>" />
                 </div>
 
                 <div>
-                    <h3>Kaufpreis / Total Investition</h3>
-                    <div class="tooltip"><img src="Pictures\info1.png">
-                        <div class="right">
-                            <h3>Kaufpreis/Total Investition</h3>
-                            <p>Dolor sit amet, consectetur adipiscing elit.</p>
-                            <i></i>
-                        </div>
-                    </div>
-
-                    <input type="number" id="price" name="Kaufpreis" value="<?php echo $_POST['Kaufpreis'] ?>" />
+                    <h3>Kaufpreis</h3>
+                    <input type="number" id="price" name="Kaufpreis" required value="<?php echo $_POST['Kaufpreis'] ?>" />
                 </div>
-                <input type="submit" name="calc" id="calc" value="Ausrechnen" id="b1">
 
+                <input type="submit" name="calc" id="calc" value="Ausrechnen" id="b1">
                 <button type="button" id="popup" name="PopUp">Detailiertes PDF</button>
 
+            </form>
 
-           
-            <div id="myModal" class="modal">
+            <!-- Popup menue for detailed informations -> Shows up after Button Detailertes PDF is pressed -->
+            <form action="index.php" method="POST">
+                <div id="myModal" class="modal">
 
-                <!-- Modal content -->
-                <div class="modal-content">
-                    <span class="close">&times;</span>
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
 
-                    <head>
-                        <h1>Detailiertes PDF drucken</h1>
-                    </head>
+                        <head>
+                            <h1>Detailierte Angaben</h1>
+                        </head>
 
-                    <body>
-                        <p>Um ein Detailiertes PDF zu generieren müssen Sie unten im Formular Ihre Kontaktdaten angeben.</p>
-                        
+                        <body>
+                            <p>Bitte Kontaktinformationen ausfüllen für Detailinformationen als PDF.</p>
                             <h3>Vorname</h3>
-                            <input type="text" name="vorname" />
+                            <input type="text" name="vorname" onkeypress="return /[a-z]/i.test(event.key)" required></input>
                             <h3>Nachname</h3>
-                            <input type="text" name="nachname" />
+                            <input type="text" name="nachname" onkeypress="return /[a-z]/i.test(event.key)" required></input>
                             <h3>e-Mail</h3>
-                            <input type="text" name="email" />
-                            <button type="submit" name="addToDB" value="2">Drucken</button>
-                        
-                    </body>
+                            <input type="email" name="email" required></input>
+
+                            <!-- Hidden inputfields to mirror data of the first form -->
+                            <input type="hidden" id="Mek" name="Ek1" value="<?php echo $_POST['Ek'] ?>"></input>
+                            <input type="hidden" id="Mprice" name="Kaufpreis1" value=" <?php echo $_POST['Kaufpreis'] ?>"></input>
+                            <input type="hidden" id="Mjek" name="Jahreseinkommen1" value=" <?php echo $_POST['Jahreseinkommen'] ?>"></input>
+
+                            <button type="submit" id="print" name="addToDB" value="2">Drucken</button>
+                        </body>
+                    </div>
                 </div>
-            </div>
             </form>
 
         </div>
+
+        <!-- If button in the Popup is pressed the session variables are beeing initialized and added to the database.  -->
         <?php
         if (isset($_POST['addToDB'])) {
-            addToDB();
+            initializeSession($_POST['Kaufpreis1'], $_POST['Ek1'], $_POST['Jahreseinkommen1'], $_POST['vorname'], $_POST['nachname'], $_POST['email']);
+            addToDB(); ?>
+            <script>
+                window.location = "src/php/print.php";
+            </script>
+        <?php
         }
-      
         ?>
 
-
+        <!-- Chart for Belehnung -->
         <div class="chart">
             <h2>Ihre Belehnung: <?php if (isset($_POST['calc'])) {
                                     echo calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']) . "%" ?><br><?php if (calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']) < 80) {
@@ -117,9 +146,11 @@
                                                                                                             echo "Belehnung zu hoch";
                                                                                                         }
                                                                                                     } ?></h2>
-            <canvas id="myChart" width="400" height="400"></canvas>
+
+            <canvas id="myChart" class="chart" width="400" height="400"></canvas>
         </div>
 
+        <!-- Right side with output fields  -->
         <div class="results">
             <div>
                 <h2>Tragbarkeit: <?php
@@ -139,13 +170,14 @@
                     </div>
                 </div>
             </div>
+
             <div>
                 <h3></h3>
 
                 <canvas id="Chart1" width="400px" height="50px"></canvas>
             </div>
             <input type="hidden" id="tragbarkeit" name="Result" value="<?php
-                                                                        if (isset($_POST['calc']) OR isset($_POST['addToDB'])) {
+                                                                        if (isset($_POST['calc']) or isset($_POST['addToDB'])) {
                                                                             echo calcTragbarkeit($_POST['Kaufpreis'], $_POST['Ek'], $_POST['Jahreseinkommen']);
                                                                         } ?>" readonly>
 
@@ -158,13 +190,13 @@
                     </div>
                 </div>
                 <input type="text" name="hypo" value="<?php
-                                                        if (isset($_POST['calc']) OR isset($_POST['addToDB'])) {
+                                                        if (isset($_POST['calc']) or isset($_POST['addToDB'])) {
                                                             $zins = calcZins($_POST['Kaufpreis'], $_POST['Ek']);
                                                             echo $zins . " CHF";
                                                         } ?>" readonly>
 
-
             </div>
+
             <div>
                 <h3>Amortisation j.</h3>
                 <div class="tooltip"><img src="Pictures\info1.png">
@@ -174,10 +206,11 @@
                     </div>
                 </div>
                 <input type="text" name="Result" value="<?php
-                                                        if (isset($_POST['calc']) OR isset($_POST['addToDB'] )) {
-                                                            echo number_format(calcAmotisation($_POST['Kaufpreis'], $_POST['Ek'])) . " CHF";
+                                                        if (isset($_POST['calc']) or isset($_POST['addToDB'])) {
+                                                            echo number_format(calcAmotisation($_POST['Kaufpreis'], $_POST['Ek']), 2, ".", "'") . " CHF";
                                                         } ?>" readonly>
             </div>
+
             <div>
                 <h3>Unterhaltskosten j.</h3>
                 <div class="tooltip"><img src="Pictures\info1.png">
@@ -187,12 +220,13 @@
                     </div>
                 </div>
                 <input type="text" name="Result" value="<?php
-                                                        if (isset($_POST['calc']) OR isset($_POST['addToDB'])) {
+                                                        if (isset($_POST['calc']) or isset($_POST['addToDB'])) {
                                                             $nebenkosten = $_POST['Kaufpreis'] * 0.007;
-                                                            echo number_format($nebenkosten) . " CHF";
+                                                            echo number_format($nebenkosten, 2, ".", "'") . " CHF";
                                                         } ?>" readonly>
 
             </div>
+
             <div>
                 <h3>Monatliche Gesamtkosten</h3>
                 <div class="tooltip"><img src="Pictures\info1.png">
@@ -202,13 +236,13 @@
                     </div>
                 </div>
                 <input type="text" name="Result" value="<?php
-                                                        if (isset($_POST['calc']) OR isset($_POST['addToDB'])) {
+                                                        if (isset($_POST['calc']) or isset($_POST['addToDB'])) {
                                                             echo calcMonatlichegesammtkosten($_POST['Kaufpreis'], $_POST['Ek']) . " CHF";
                                                         } ?>" readonly>
 
             </div>
 
-            <!-- Belehnungsgrad</h3> -->
+            <!-- Belehnungsgrad -->
             <input type="Text" type="hidden" id="bel" name="Result" id="b22" value="<?php
                                                                                     if (isset($_POST['calc'])) {
                                                                                         echo calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']);
@@ -216,9 +250,9 @@
 
         </div>
     </div>
-
+    <!-- Texts from Dropdowns -->
     <div class="text">
-        <h2>FRAGEN ZUM HYPOTHEKENRECHNER UND TRAGBARKEIT</h2>
+        <h2>Fragen zum Hypothekenrechner und Tragbarkeit</h2>
 
         <button type="button" class="collapsible">Die Belastung ist zu hoch. Wie kann ich meine Eigenmittel erhöhen?</button>
         <div class="content">
@@ -262,7 +296,9 @@
         </div>
     </div>
 
+
     <?php
+
     function calcBelehnung($kaufpreis, $ek)
     {
         if ($kaufpreis * 0.2 <= $ek) {
@@ -271,11 +307,11 @@
             $check = false;
         }
         $hypo = 100 - 100 / $kaufpreis * $ek;
-        $eig = 100 / $kaufpreis * $ek;
 
         if ($hypo < 0) {
             $hypo = 0;
         }
+        $eig = 100 / $kaufpreis * $ek;
 
         if ($check) {
             return (round($hypo));
@@ -290,7 +326,7 @@
         if ($zins < 0) {
             $zins = 0;
         }
-        return number_format($zins);
+        return number_format($zins, 2, ".", "'");
     }
 
     function calcTragbarkeit($kaufpreis, $ek, $einkommen)
@@ -307,12 +343,12 @@
             if ($res > 100) {
                 $res = 100;
             }
-            return number_format($res);
+            return number_format($res, 2, ".", "'");
         } else {
             if ($res < 0) {
                 $res = 0;
             }
-            return number_format($res);
+            return number_format($res, 2, ".", "'");
         }
     }
 
@@ -343,7 +379,7 @@
         $hypo = 100 - 100 / $kaufpreis * $ek;
         $amortisationsbetrag = calcAmotisation($_POST['Kaufpreis'], $_POST['Ek']); // Only works if numberFormat isn't in function
         $zins =  ($kaufpreis - $ek) * 0.05;
-        $unterhaltskosten = $kaufpreis * 0.01;
+        $unterhaltskosten = $kaufpreis * 0.007;
         if ($zins < 0) {
             $zins = 0;
         }
@@ -352,7 +388,7 @@
         }
 
         $gesammt = ($zins + $amortisationsbetrag + $unterhaltskosten) / 12;
-        return number_format($gesammt);
+        return number_format($gesammt, 2, ".", "'");
     }
 
     function autocompleteKaufpreis($ek)
@@ -366,19 +402,39 @@
         /* Datenbankdatei ausserhalb htdocs öffnen bzw. erzeugen */
         $db = new SQLite3("$dbdir/SA_Lfimmo.db");
         $sqlstr = "INSERT INTO TInformationen (InfoEK, InfoJahreseinkommen, InfoKaufpreis, InfoHypothekarzins, InfoAmortisation, InfoUnterhaltskosten, InfoMGesamtkosten, InfoVorname, InfoNachname, InfoEmail) VALUES";
-        $db->query($sqlstr . "('".$_POST['Ek']."','".$_POST['Jahreseinkommen']."','".$_POST['Kaufpreis']."','".calcZins($_POST['Kaufpreis'], $_POST['Ek'])."','".calcAmotisation($_POST['Kaufpreis'], $_POST['Ek'])."','".$_POST['Kaufpreis'] * 0.007."','".calcMonatlichegesammtkosten($_POST['Kaufpreis'], $_POST['Ek'])."','".$_POST['vorname']."','".$_POST['nachname']."','".$_POST['email']."');");
+        $db->query($sqlstr . "('" . $_SESSION['Eigenkapital'] . "','" . $_SESSION['Einnahmen'] . "','" . $_SESSION['Kaufpreis'] . "','" . calcZins($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital']) . "','" . calcAmotisation($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital']) . "','" . $_SESSION['Kaufpreis'] * 0.007 . "','" . calcMonatlichegesammtkosten($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital']) . "','" . $_POST['vorname'] . "','" . $_POST['nachname'] . "','" . $_POST['email'] . "');");
         $db->close();
+        function sendPDF()
+        {
+            require('phpToPDF.php');
+
+            //It is possible to include a file that outputs html and store it in a variable 
+        }
+    }
+    //Session variables for Print page
+    function initializeSession($kaufpreis, $ek, $einkommen, $vorname, $nachname, $mail)
+    {
+        $_SESSION['Kaufpreis'] = $kaufpreis;
+        $_SESSION['Eigenkapital'] = $ek;
+        $_SESSION['Hypothek1'] = $kaufpreis * 0.66;
+        $_SESSION['Hypothek2'] = calcAmotisation($kaufpreis, $ek);
+        $_SESSION['TotalBankFin'] = $_SESSION['Hypothek1'] + $_SESSION['Hypothek2'];
+        $_SESSION['NebenK'] = $kaufpreis * 0.007;
+        $_SESSION['TotalBelastungJ'] = ($_SESSION['TotalBankFin'] * 0.05) + $_SESSION['NebenK'];
+        $_SESSION['Einnahmen'] = $einkommen;
+        $_SESSION['Tragbarkeit'] = calcTragbarkeit($kaufpreis, $ek, $einkommen);
+        $_SESSION['Finnanzierung'] = 100 - calcBelehnung($kaufpreis, $ek);
+        $_SESSION['Vorname'] = $vorname;
+        $_SESSION['Nachname'] = $nachname;
+        $_SESSION['Email'] = $mail;
     }
     ?>
 
-    <div id="demo"></div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="Library/jquery-3.5.1.js"></script>
+    <script src="/src/js/script.js"></script>
+    <script src="/src/js/chart.js"></script>
 
 </body>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script src="Library/jquery-3.5.1.js"></script>
-<script src="js/script.js"></script>
-<script src="js/chart.js"></script>
-<!-- <script src="js/complete.js"></script> -->
-<script src="print.js"></script>
 
 </html>

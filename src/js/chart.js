@@ -4,17 +4,20 @@ var price = document.getElementById('price').value;
 var ctx1 = document.getElementById('myChart').getContext('2d');
 // If ek & price is not set = 0
 var chart1 = new Chart(ctx1, {
+    tooltips: {
+        enabled: true
+    },
     type: 'bar',
     data: {
         datasets: [{
                 data: [100 - 100 / price * ek],
-                backgroundColor: '#b82e2e',
-                label: "Hypotheke"
+                backgroundColor: '#ad7331',
+
             },
 
             {
                 data: [100 / price * ek],
-                backgroundColor: '#3aaa35',
+                backgroundColor: '#deb587',
                 label: "Eigene Mittel"
             }
         ]
@@ -115,10 +118,10 @@ var myChart = new Chart(ctx, {
 
         datasets: [{
             data: [100 - tragbarkeit],
-            backgroundColor: '#3aaa35',
+            backgroundColor: '#ad7331',
         }, {
             data: [tragbarkeit],
-            backgroundColor: '#b82e2e',
+            backgroundColor: '#deb587',
         }]
     },
 

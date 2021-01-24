@@ -1,0 +1,126 @@
+body {
+    background-color: #2e3332;
+}
+
+header {
+    height: 8vh;
+    font-family: 'Titillium Web', sans-serif;
+    color: #EDF5E1;
+}
+
+.top {
+    background-color: #2e3332;
+    position: relative;
+    width: 100%;
+    height: 7vh;
+    top: 0;
+    left: 0;
+    text-align: center;
+}
+
+.main {
+    height: 85vh;
+}
+
+.rightNav {
+    font-family: 'Titillium Web';
+    background-color: #b1b1b1;
+    color: #ffffff;
+    left: 0;
+    width: 20%;
+    height: 85vh;
+    position: absolute;
+    text-align: center;
+    float: left;
+}
+
+.buttonGroup {
+    padding-top: 10%;
+}
+
+button {
+    font-family: 'Titillium Web';
+    color: #EDF5E1;
+    background-color: #010303;
+    border: none;
+    padding: 30px 32px;
+    text-align: center;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    width: 80%;
+    text-decoration: none;
+}
+
+button:hover {
+    background-color: #7a2f2f;
+}
+
+.mainContent {
+    background-color: #ffffff;
+    width: 80%;
+    height: 85vh;
+    float: right;
+    right: 0;
+    position: absolute;
+    overflow-y: scroll;
+}
+
+table {
+    font-family: 'Titillium Web';
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #424242;
+    text-align: center;
+    padding: 0px;
+}
+
+tr:nth-child(even) {
+    background-color: #eb3023e3;
+}
+
+.contentM {
+    float: left;
+}
+
+.contentR {
+    float: left;
+}
+
+.contentCenter {
+    margin-top: 3%;
+}
+
+input,
+select {
+    height: 3em;
+    width: 100%;
+}
+
+.submit {
+    float: left;
+}
+
+.ModButton {
+    justify-content: space-around;
+    display: flex;
+    width: 100%;
+    margin-top: 3%;
+}
+
+footer {
+    font-family: 'Titillium Web';
+    color: #EDF5E1;
+    background-color: #2e3332;
+    width: 100%;
+    height: auto;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: space-around;
+}
