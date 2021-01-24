@@ -40,7 +40,6 @@ input[type=number] {
 header {
     top: 0;
     width: 100%;
-    position: relative;
 }
 
 header img {
@@ -64,15 +63,21 @@ header h1 {
 /* --- nav --- */
 
 nav {
+    z-index: 5;
     height: 11vh;
     background-color: #c7bb9f;
+    opacity: 10;
+    position: fixed;
+    width: 100%;
 }
 
 nav img {
+    overflow: hidden;
     float: right;
     height: 7em;
     padding-right: 2%;
     max-width: 100%;
+    margin-top: -0.3%;
 }
 
 
@@ -226,6 +231,7 @@ button {
 }
 
 input[type=text],
+input[type=email],
 input[type=number],
 select {
     width: 100%;

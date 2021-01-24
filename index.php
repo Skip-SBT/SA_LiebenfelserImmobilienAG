@@ -7,8 +7,6 @@
 -->
 <html>
 <?php
-// Import PHPMailer classes into the global namespace
-// These must be at the top of your script, not inside a function
 
 
 error_reporting(E_ERROR | E_PARSE);
@@ -23,46 +21,41 @@ if (!isset($_SESSION['anzahlbesuche'])) {
 
 ?>
 
-<head>
+<head id="Header">
     <title>Hypothekenrechner – Liebenfelser Immobilien AG</title>
     <link href="/src/css/stylesheet.css" rel="stylesheet" type="text/css" />
     <link href="/src/css/stylePopUp.css" rel="stylesheet" type="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
-<nav>
+
+<nav id="nav">
+    <!-- inside of the navigation menu -->
     <div id="mySidenav" class="sidenav">
-        <span href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</span>
-        <a href="#">Home</a>
-        <a href="#">Contact</a>
+        <span href="javascript:void(0)" class="closebtn" id="navButtonC" onclick="closeNav()">&times;</span>
+        <a href="https://lf-immo.ch/">Home</a>
+        <a href="https://lf-immo.ch/kontakt/">Contact</a>
     </div>
 
+    <!-- Burger menu -->
+    <span style="font-size:60px;cursor:pointer; color:white; padding-left:20px;" id="navButtonO" onclick="openNav()">&#9776;</span>
 
-    <span style="font-size:60px;cursor:pointer; color:white; padding-left:20px;" onclick="openNav()">&#9776;</span>
-
-    <script>
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "650px";
-        }
-
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-        }
-    </script>
-
+    <!-- Liebenfelser Logo -->
     <img src="Pictures/logo.svg">
+
 </nav>
+
 <header>
     <img src="/Pictures/placeholder3.jpg" alt="placeholder house">
     <h1>Modellrechnung</h1>
 </header>
 
-<body onLoad="window.location ='#main'">
+<body id="body" onLoad="window.location ='#main'">
     <div id="main" class="main">
-        <!-- input -->
+
+        <!-- Three input field. Values from them are yoused to calculate and draw the charts. -->
         <div class="input">
             <form action="index.php" method="POST" id="form">
-
                 <div>
                     <h3>Eigenmittel</h3>
                     <div class="tooltip"><img src="Pictures\info1.png">
@@ -76,7 +69,6 @@ if (!isset($_SESSION['anzahlbesuche'])) {
                         </div>
                     </div>
                     <input type="number" id="ek" name="Ek" required value="<?php echo $_POST['Ek'] ?>" />
-
                 </div>
 
                 <div>
@@ -93,47 +85,48 @@ if (!isset($_SESSION['anzahlbesuche'])) {
                     <h3>Kaufpreis</h3>
                     <input type="number" id="price" name="Kaufpreis" required value="<?php echo $_POST['Kaufpreis'] ?>" />
                 </div>
-                <input type="submit" name="calc" id="calc" value="Ausrechnen" id="b1">
 
+                <input type="submit" name="calc" id="calc" value="Ausrechnen" id="b1">
                 <button type="button" id="popup" name="PopUp">Detailiertes PDF</button>
 
-
-
-
             </form>
+
+            <!-- Popup menue for detailed informations -> Shows up after Button Detailertes PDF is pressed -->
             <form action="index.php" method="POST">
-            <div id="myModal" class="modal">
+                <div id="myModal" class="modal">
 
-                <!-- Modal content -->
-                <div class="modal-content">
-                    <span class="close">&times;</span>
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
 
-                    <head>
-                        <h1>Detailierte Angaben</h1>
-                    </head>
+                        <head>
+                            <h1>Detailierte Angaben</h1>
+                        </head>
 
-                    <body>
-                        <p>Bitte Kontaktinformationen ausfüllen für Detailinformationen als PDF.</p>
-                        <h3>Vorname</h3>
-                        <input type="text" name="vorname" onkeypress="return /[a-z]/i.test(event.key)" required></input>
-                        <h3>Nachname</h3>
-                        <input type="text" name="nachname" onkeypress="return /[a-z]/i.test(event.key)" required></input>
-                        <h3>e-Mail</h3>
-                        <input type="email" name="email" required></input>
+                        <body>
+                            <p>Bitte Kontaktinformationen ausfüllen für Detailinformationen als PDF.</p>
+                            <h3>Vorname</h3>
+                            <input type="text" name="vorname" onkeypress="return /[a-z]/i.test(event.key)" required></input>
+                            <h3>Nachname</h3>
+                            <input type="text" name="nachname" onkeypress="return /[a-z]/i.test(event.key)" required></input>
+                            <h3>e-Mail</h3>
+                            <input type="email" name="email" required></input>
 
-                        <input type="hidden" id="Mek" name="Ek1"  value="<?php echo $_POST['Ek'] ?>"></input>
-                        <input type="hidden" id="Mprice" name="Kaufpreis1"value=" <?php echo $_POST['Kaufpreis'] ?>"></input>
-                        <input type="hidden" id="Mjek" name="Jahreseinkommen1"value=" <?php echo $_POST['Jahreseinkommen']?>"></input>
+                            <!-- Hidden inputfields to mirror data of the first form -->
+                            <input type="hidden" id="Mek" name="Ek1" value="<?php echo $_POST['Ek'] ?>"></input>
+                            <input type="hidden" id="Mprice" name="Kaufpreis1" value=" <?php echo $_POST['Kaufpreis'] ?>"></input>
+                            <input type="hidden" id="Mjek" name="Jahreseinkommen1" value=" <?php echo $_POST['Jahreseinkommen'] ?>"></input>
 
-                        <button type="submit" id="print" name="addToDB" value="2">Drucken</button>
-                    </body>
+                            <button type="submit" id="print" name="addToDB" value="2">Drucken</button>
+                        </body>
+                    </div>
                 </div>
-            </div>
             </form>
 
         </div>
+
+        <!-- If button in the Popup is pressed the session variables are beeing initialized and added to the database.  -->
         <?php
-        
         if (isset($_POST['addToDB'])) {
             initializeSession($_POST['Kaufpreis1'], $_POST['Ek1'], $_POST['Jahreseinkommen1'], $_POST['vorname'], $_POST['nachname'], $_POST['email']);
             addToDB(); ?>
@@ -141,24 +134,10 @@ if (!isset($_SESSION['anzahlbesuche'])) {
                 window.location = "src/php/print.php";
             </script>
         <?php
-            // // Load Composer's autoloader
-            // require 'Mailer/vendor/autoload.php';
-            // // Instantiation and passing `true` enables exceptions
-            // $email = new PHPMailer(true);
-            // $email->SetFrom('maximilian.hubrath@gmail.com', 'maxi'); //Name is optional
-            // $email->Subject   = 'DATEN VON IMMO.CALC';
-            // $email->Body      = $bodytext;
-            // $email->AddAddress('maximilian.hubrath@stud.kftg.ch');
-
-            // $file_to_attach = 'docs/dataSheet.pdf';
-
-            // $email->AddAttachment($file_to_attach, 'dataSheet.pdf');
-
-            // return $email->Send();
         }
         ?>
 
-
+        <!-- Chart for Belehnung -->
         <div class="chart">
             <h2>Ihre Belehnung: <?php if (isset($_POST['calc'])) {
                                     echo calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']) . "%" ?><br><?php if (calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']) < 80) {
@@ -167,9 +146,11 @@ if (!isset($_SESSION['anzahlbesuche'])) {
                                                                                                             echo "Belehnung zu hoch";
                                                                                                         }
                                                                                                     } ?></h2>
+
             <canvas id="myChart" class="chart" width="400" height="400"></canvas>
         </div>
 
+        <!-- Right side with output fields  -->
         <div class="results">
             <div>
                 <h2>Tragbarkeit: <?php
@@ -189,6 +170,7 @@ if (!isset($_SESSION['anzahlbesuche'])) {
                     </div>
                 </div>
             </div>
+
             <div>
                 <h3></h3>
 
@@ -213,8 +195,8 @@ if (!isset($_SESSION['anzahlbesuche'])) {
                                                             echo $zins . " CHF";
                                                         } ?>" readonly>
 
-
             </div>
+
             <div>
                 <h3>Amortisation j.</h3>
                 <div class="tooltip"><img src="Pictures\info1.png">
@@ -228,6 +210,7 @@ if (!isset($_SESSION['anzahlbesuche'])) {
                                                             echo number_format(calcAmotisation($_POST['Kaufpreis'], $_POST['Ek']), 2, ".", "'") . " CHF";
                                                         } ?>" readonly>
             </div>
+
             <div>
                 <h3>Unterhaltskosten j.</h3>
                 <div class="tooltip"><img src="Pictures\info1.png">
@@ -243,6 +226,7 @@ if (!isset($_SESSION['anzahlbesuche'])) {
                                                         } ?>" readonly>
 
             </div>
+
             <div>
                 <h3>Monatliche Gesamtkosten</h3>
                 <div class="tooltip"><img src="Pictures\info1.png">
@@ -258,7 +242,7 @@ if (!isset($_SESSION['anzahlbesuche'])) {
 
             </div>
 
-            <!-- Belehnungsgrad</h3> -->
+            <!-- Belehnungsgrad -->
             <input type="Text" type="hidden" id="bel" name="Result" id="b22" value="<?php
                                                                                     if (isset($_POST['calc'])) {
                                                                                         echo calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']);
@@ -266,7 +250,7 @@ if (!isset($_SESSION['anzahlbesuche'])) {
 
         </div>
     </div>
-
+    <!-- Texts from Dropdowns -->
     <div class="text">
         <h2>Fragen zum Hypothekenrechner und Tragbarkeit</h2>
 
@@ -311,7 +295,7 @@ if (!isset($_SESSION['anzahlbesuche'])) {
                 So steht Ihr Eigenheim auf einem sicheren Fundament – was immer auch kommt.</p>
         </div>
     </div>
-   
+
 
     <?php
 
@@ -418,15 +402,14 @@ if (!isset($_SESSION['anzahlbesuche'])) {
         /* Datenbankdatei ausserhalb htdocs öffnen bzw. erzeugen */
         $db = new SQLite3("$dbdir/SA_Lfimmo.db");
         $sqlstr = "INSERT INTO TInformationen (InfoEK, InfoJahreseinkommen, InfoKaufpreis, InfoHypothekarzins, InfoAmortisation, InfoUnterhaltskosten, InfoMGesamtkosten, InfoVorname, InfoNachname, InfoEmail) VALUES";
-        $db->query($sqlstr . "('" . $_SESSION['Eigenkapital'] . "','" . $_SESSION['Einnahmen'] . "','" . $_SESSION['Kaufpreis'] . "','" . calcZins($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital'] ) . "','" . calcAmotisation($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital'] ) . "','" . $_SESSION['Kaufpreis'] * 0.007 . "','" . calcMonatlichegesammtkosten($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital'] ) . "','" . $_POST['vorname'] . "','" . $_POST['nachname'] . "','" . $_POST['email'] . "');");
+        $db->query($sqlstr . "('" . $_SESSION['Eigenkapital'] . "','" . $_SESSION['Einnahmen'] . "','" . $_SESSION['Kaufpreis'] . "','" . calcZins($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital']) . "','" . calcAmotisation($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital']) . "','" . $_SESSION['Kaufpreis'] * 0.007 . "','" . calcMonatlichegesammtkosten($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital']) . "','" . $_POST['vorname'] . "','" . $_POST['nachname'] . "','" . $_POST['email'] . "');");
         $db->close();
         function sendPDF()
         {
-        require('phpToPDF.php');
+            require('phpToPDF.php');
 
-        //It is possible to include a file that outputs html and store it in a variable 
-    }
-        
+            //It is possible to include a file that outputs html and store it in a variable 
+        }
     }
     //Session variables for Print page
     function initializeSession($kaufpreis, $ek, $einkommen, $vorname, $nachname, $mail)
@@ -440,19 +423,18 @@ if (!isset($_SESSION['anzahlbesuche'])) {
         $_SESSION['TotalBelastungJ'] = ($_SESSION['TotalBankFin'] * 0.05) + $_SESSION['NebenK'];
         $_SESSION['Einnahmen'] = $einkommen;
         $_SESSION['Tragbarkeit'] = calcTragbarkeit($kaufpreis, $ek, $einkommen);
-        $_SESSION['Finnanzierung'] = 100-calcBelehnung($kaufpreis, $ek);
+        $_SESSION['Finnanzierung'] = 100 - calcBelehnung($kaufpreis, $ek);
         $_SESSION['Vorname'] = $vorname;
         $_SESSION['Nachname'] = $nachname;
         $_SESSION['Email'] = $mail;
     }
     ?>
 
-
-    
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="Library/jquery-3.5.1.js"></script>
     <script src="/src/js/script.js"></script>
     <script src="/src/js/chart.js"></script>
+
 </body>
 
 </html>

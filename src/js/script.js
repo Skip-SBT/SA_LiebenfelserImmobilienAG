@@ -15,6 +15,7 @@ for (i = 0; i < coll.length; i++) {
     });
 }
 
+
 // Get the modal
 var modal = document.getElementById("myModal");
 
@@ -57,4 +58,30 @@ window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
+}
+
+//change nav color on burger menue click
+var nav = document.getElementById("nav");
+var mySidenav = document.getElementById("mySidenav");
+var navBO = document.getElementById("navButtonO");
+var navBC = document.getElementById("navButtonC");
+navBO.addEventListener("click", styleChange);
+navBC.addEventListener("click", styleBack);
+
+function styleChange() {
+    nav.style.backgroundColor = "#a3987a";
+    mySidenav.style.backgroundColor = "#c7bb9f";
+}
+
+function styleBack() {
+    nav.style.backgroundColor = "#c7bb9f";
+    mySidenav.style.backgroundColor = "#c7bb9f";
+}
+//nav open close button functions
+function openNav() {
+    document.getElementById("mySidenav").style.width = "650px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
 }
