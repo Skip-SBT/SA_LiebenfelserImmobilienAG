@@ -14,6 +14,13 @@ header {
     height: 60px;
 }
 
+img {
+    float: right;
+    height: 5em;
+    margin-top: -10px;
+    padding-right: 6px;
+}
+
 header h3 {
     padding-left: 50px;
     padding-top: 18px;
@@ -22,7 +29,7 @@ header h3 {
 .title {
     font-weight: bold;
     padding-left: 50px;
-    padding-top: 35px;
+    padding-top: 14px;
 }
 
 .object {

@@ -25,9 +25,8 @@ if (!isset($_SESSION['anzahlbesuche'])) {
 
 <head>
     <title>Hypothekenrechner – Liebenfelser Immobilien AG</title>
-    <link href="stylesheet.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="print.css">
-    <link href="stylePopUp.css" rel="stylesheet" type="text/css" />
+    <link href="/src/css/stylesheet.css" rel="stylesheet" type="text/css" />
+    <link href="/src/css/stylePopUp.css" rel="stylesheet" type="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>

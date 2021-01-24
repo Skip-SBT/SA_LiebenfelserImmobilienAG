@@ -10,11 +10,11 @@
 </head>
 
 <body>
+<img src="/Pictures/logo.svg">
     <header>
-        <h3>Modellrechnung</h3>
+    <h2 class="title">Modellrechnung</h2>
+    
     </header>
-
-    <h2 class="title">Standartberechnung</h2>
     <div class="object">
         <h4>Angaben zum Objekt</h4>
         <hr class="titleHr">
@@ -78,7 +78,7 @@
             <!-- subObject 1 -->
             <div class="content">
                 <h5 class="left">1. Hypothek</h5>
-                <h5 class="rightS"><?php echo $_SESSION['Hypothek1']; ?></h5>
+                <h5 class="rightS"><?php echo number_format($_SESSION['Hypothek1'], 2, ".", "'"); ?></h5>
                 <br>
                 <hr class="subTitleHrSplit">
                 <!-- subObject 2 -->
@@ -187,7 +187,7 @@
     <footer>
         <h6>1 Zur Berechnung der langfristigen Tragbarkeit werden nicht die aktuellen, sondern langfristige durchschnittlichen Zinssätze verwendet.</h6>
         <h6>2 2. Hypothek ist in 15 Jahren abzubezahlen</h6>
-        <h6>Standartberechnung für: <?php echo ($_SESSION['Vorname']. $_SESSION['Nachname'].' | '. date("Y.m.d"))?> | Liebenfelser Immobilien AG</h6>
+        <h6>Standartberechnung für: <?php echo ($_SESSION['Vorname'].' '. $_SESSION['Nachname'].' | '. date("Y.m.d"))?> | Liebenfelser Immobilien AG</h6>
     </footer>
     <input type="hidden" id="chartVal1" value="<?php echo $_SESSION['TotalBankFin']; ?>"></input>
     <input type="hidden" id="chartVal2" value="<?php echo $_SESSION['Eigenkapital']; ?>"></input>
