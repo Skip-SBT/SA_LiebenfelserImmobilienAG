@@ -116,11 +116,11 @@ if (!isset($_SESSION['anzahlbesuche'])) {
                     <body>
                         <p>Bitte Kontaktinformationen ausfüllen für Detailinformationen als PDF.</p>
                         <h3>Vorname</h3>
-                        <input type="text" name="vorname" required></input>
+                        <input type="text" name="vorname" onkeypress="return /[a-z]/i.test(event.key)" required></input>
                         <h3>Nachname</h3>
-                        <input type="text" name="nachname" required></input>
+                        <input type="text" name="nachname" onkeypress="return /[a-z]/i.test(event.key)" required></input>
                         <h3>e-Mail</h3>
-                        <input type="text" name="email" required></input>
+                        <input type="email" name="email" required></input>
 
                         <input type="hidden" id="Mek" name="Ek1"  value="<?php echo $_POST['Ek'] ?>"></input>
                         <input type="hidden" id="Mprice" name="Kaufpreis1"value=" <?php echo $_POST['Kaufpreis'] ?>"></input>
@@ -449,14 +449,11 @@ if (!isset($_SESSION['anzahlbesuche'])) {
     ?>
 
 
-    <div id="demo"></div>
-
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="Library/jquery-3.5.1.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/chart.js"></script>
-    <!-- <script src="js/complete.js"></script> -->
-    <script src="print.js"></script>
+    <script src="/src/js/script.js"></script>
+    <script src="/src/js/chart.js"></script>
 </body>
 
 </html>
