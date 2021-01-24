@@ -15,6 +15,13 @@ Filename       : stylesheet
     /* line-height: 27px; */
 }
 
+html {
+    max-width: 100%;
+    min-width: 330px;
+    min-height: 685px;
+    overflow-x: hidden;
+}
+
 
 /*--- input styles ---*/
 
@@ -64,7 +71,7 @@ header h1 {
 
 nav {
     z-index: 5;
-    height: 11vh;
+    height: 10vh;
     background-color: #c7bb9f;
     opacity: 10;
     position: fixed;
@@ -78,6 +85,13 @@ nav img {
     padding-right: 2%;
     max-width: 100%;
     margin-top: -0.3%;
+}
+
+#navButtonO {
+    font-size: 3vw;
+    cursor: pointer;
+    color: white;
+    padding-left: 20px;
 }
 
 
@@ -132,6 +146,10 @@ nav img {
 
 body {
     background-color: #f7f4ed;
+    max-width: 100%;
+    min-width: 330px;
+    min-height: 685px;
+    overflow-x: hidden;
 }
 
 
@@ -147,12 +165,11 @@ body {
 }
 
 .input {
-    min-width: 260px;
+    min-width: 200px;
 }
 
 .results {
-    min-width: 260px;
-    max-width: 500px;
+    min-width: 200px;
 }
 
 form {
@@ -171,8 +188,9 @@ input {
     width: 75%;
     margin: auto;
     margin-bottom: 5%;
-    padding-top: 0%;
+    padding-top: 2%;
     text-justify: auto;
+    flex-flow: row nowrap;
 }
 
 .collapsible {
@@ -193,6 +211,11 @@ input {
     font-weight: bold;
     float: right;
     margin-left: 5px;
+}
+
+.chart {
+    width: 400px;
+    height: 400px !important;
 }
 
 .active,
@@ -306,13 +329,13 @@ h2 {
     position: absolute;
     top: 50%;
     right: 100%;
-    margin-top: -12px;
     width: 12px;
     height: 24px;
     overflow: hidden;
 }
 
 .tooltip img {
+    margin-top: -12px;
     width: 20px;
     opacity: .7;
 }
@@ -329,10 +352,59 @@ h2 {
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
 }
 
-@media only screen and (max-width:620px) {
-    /* For mobile phones: */
-    .chart {
+@media screen and (max-width:1000px) {
+    .input,
+    .results,
+    html,
+    #popup,
+    header img,
+    nav {
         width: 100%;
-        float: left;
+        margin-right: 60px;
+        padding: 0px;
+        /* The width is 100%, when the viewport is 800px or smaller */
+    }
+}
+
+@media screen and (max-width:1000px) {
+    .chart {
+        width: 90%;
+        padding-bottom: 20%;
+        padding-top: 1%;
+    }
+}
+
+@media screen and (max-width:1000px) {
+    .main {
+        width: 100%;
+        flex-flow: row wrap;
+    }
+}
+
+@media screen and (max-width:1000px) {
+    .text {
+        margin-bottom: 5%;
+        padding-top: 750px;
+        flex-flow: row nowrap;
+    }
+}
+
+@media screen and (max-width:1000px) {
+    header h1,
+    nav img {
+        visibility: hidden;
+    }
+}
+
+@media screen and (max-height:1000px) {
+    header h1,
+    nav img {
+        visibility: hidden;
+    }
+}
+
+@media screen and (max-width:1442px) {
+    #navButtonO {
+        font-size: 2em;
     }
 }

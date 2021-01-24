@@ -38,7 +38,7 @@ if (!isset($_SESSION['anzahlbesuche'])) {
     </div>
 
     <!-- Burger menu -->
-    <span style="font-size:60px;cursor:pointer; color:white; padding-left:20px;" id="navButtonO" onclick="openNav()">&#9776;</span>
+    <span id="navButtonO" onclick="openNav()">&#9776;</span>
 
     <!-- Liebenfelser Logo -->
     <img src="Pictures/logo.svg">
@@ -147,7 +147,7 @@ if (!isset($_SESSION['anzahlbesuche'])) {
                                                                                                         }
                                                                                                     } ?></h2>
 
-            <canvas id="myChart" class="chart" width="400" height="400"></canvas>
+            <canvas id="myChart" class="chart" ></canvas>
         </div>
 
         <!-- Right side with output fields  -->
@@ -247,9 +247,10 @@ if (!isset($_SESSION['anzahlbesuche'])) {
                                                                                     if (isset($_POST['calc'])) {
                                                                                         echo calcBelehnung($_POST['Kaufpreis'], $_POST['Ek']);
                                                                                     } ?>" readonly>
-
         </div>
+
     </div>
+    
     <!-- Texts from Dropdowns -->
     <div class="text">
         <h2>Fragen zum Hypothekenrechner und Tragbarkeit</h2>
@@ -295,7 +296,6 @@ if (!isset($_SESSION['anzahlbesuche'])) {
                 So steht Ihr Eigenheim auf einem sicheren Fundament – was immer auch kommt.</p>
         </div>
     </div>
-
 
     <?php
 
