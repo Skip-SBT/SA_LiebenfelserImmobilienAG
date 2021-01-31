@@ -377,7 +377,7 @@ if (!isset($_SESSION['anzahlbesuche'])) {
     function calcMonatlichegesammtkosten($kaufpreis, $ek)
     {
         $hypo = 100 - 100 / $kaufpreis * $ek;
-        $amortisationsbetrag = calcAmotisation($_POST['Kaufpreis'], $_POST['Ek']); // Only works if numberFormat isn't in function
+        $amortisationsbetrag = calcAmotisation($kaufpreis, $ek); // Only works if numberFormat isn't in function
         $zins =  ($kaufpreis - $ek) * 0.05;
         $unterhaltskosten = $kaufpreis * 0.007;
         if ($zins < 0) {
@@ -402,7 +402,7 @@ if (!isset($_SESSION['anzahlbesuche'])) {
         /* Datenbankdatei ausserhalb htdocs öffnen bzw. erzeugen */
         $db = new SQLite3("$dbdir/SA_Lfimmo.db");
         $sqlstr = "INSERT INTO TInformationen (InfoEK, InfoJahreseinkommen, InfoKaufpreis, InfoHypothekarzins, InfoAmortisation, InfoUnterhaltskosten, InfoMGesamtkosten, InfoVorname, InfoNachname, InfoEmail) VALUES";
-        $db->query($sqlstr . "('" . $_SESSION['Eigenkapital'] . "','" . $_SESSION['Einnahmen'] . "','" . $_SESSION['Kaufpreis'] . "','" . calcZins($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital']) . "','" . calcAmotisation($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital']) . "','" . $_SESSION['Kaufpreis'] * 0.007 . "','" . calcMonatlichegesammtkosten($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital']) . "','" . $_POST['vorname'] . "','" . $_POST['nachname'] . "','" . $_POST['email'] . "');");
+        $db->query($sqlstr . "('" . $_SESSION['Eigenkapital'] . "','" . $_SESSION['Einnahmen'] . "','" . $_SESSION['Kaufpreis'] . "','" . calcZins($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital']) . "','" . calcAmotisation($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital']) . "','" . $_SESSION['Kaufpreis'] * 0.007 . "','" . calcMonatlichegesammtkosten($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital']) . "','" . $_SESSION['Vorname'] . "','" . $_SESSION['Nachname'] . "','" . $_SESSION['Email'] . "');");     
         $db->close();
         function sendPDF()
         {
