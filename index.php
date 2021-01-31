@@ -46,7 +46,8 @@ if (!isset($_SESSION['anzahlbesuche'])) {
 </nav>
 
 <header>
-    <img src="/Pictures/placeholder3.jpg" alt="placeholder house">
+    <!--  -->
+    <div class="parallax"></div>
     <h1>Modellrechnung</h1>
 </header>
 
@@ -68,7 +69,7 @@ if (!isset($_SESSION['anzahlbesuche'])) {
                             <p>≤10% «Weiche Eigenmittel» (PK-Verpfändung* oder PK-Bezug)</p>
                         </div>
                     </div>
-                    <input type="number" id="ek" name="Ek" required value="<?php echo $_POST['Ek'] ?>" />
+                    <input type="number" id="ek" name="Ek" onkeypress="return /[0-9]/i.test(event.key)" required value="<?php echo $_POST['Ek'] ?>" />
                 </div>
 
                 <div>
@@ -78,12 +79,12 @@ if (!isset($_SESSION['anzahlbesuche'])) {
                             <p>Einkommen, dass während eines Jahres ohne Steuerabzug erzielt wird.</p>
                         </div>
                     </div>
-                    <input type="number" name="Jahreseinkommen" id="Jek" required value="<?php echo $_POST['Jahreseinkommen'] ?>" />
+                    <input type="number" name="Jahreseinkommen" id="Jek" onkeypress="return /[0-9]/i.test(event.key)" required value="<?php echo $_POST['Jahreseinkommen'] ?>" />
                 </div>
 
                 <div>
                     <h3>Kaufpreis</h3>
-                    <input type="number" id="price" name="Kaufpreis" required value="<?php echo $_POST['Kaufpreis'] ?>" />
+                    <input type="number" id="price" name="Kaufpreis" onkeypress="return /[0-9]/i.test(event.key)" required value="<?php echo $_POST['Kaufpreis'] ?>" />
                 </div>
 
                 <input type="submit" name="calc" id="calc" value="Ausrechnen" id="b1">
