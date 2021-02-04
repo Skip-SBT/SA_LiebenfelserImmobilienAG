@@ -1,4 +1,4 @@
-# Hypothekenrechner Liebebfelser immobilienAG
+# Hypothekenrechner Liebebfelser ImmobilienAG
 
 Eine Semesterarbeit der Kantonsschule Frauenfeld Abt. IMS von Maximilian Hubrath
 
