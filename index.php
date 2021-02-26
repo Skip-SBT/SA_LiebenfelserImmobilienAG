@@ -1,14 +1,16 @@
+<?php 
+error_reporting(E_ERROR | E_PARSE);
+session_start();
+?>
 <!DOCTYPE html>
 <!--
-    To change this license header, choose License Headers in Project Properties.
-    <meta charset="UTF-8">
-    To change this template file, choose Tools | Templates
-    and open the template in the editor.
+   Ersteller: Maximilian Hubrath
+   Beschreibung: Ein Hypothekenrechner im Auftrag von der Liebenfelser Immobilien AG
+   Updated: 26.2.2021
+   Copyright: C Maximilian Hubrath
 -->
 <html>
 <?php
-
-
 error_reporting(E_ERROR | E_PARSE);
 session_start();
 
@@ -46,14 +48,14 @@ if (!isset($_SESSION['anzahlbesuche'])) {
 </nav>
 
 <header>
-    <img src="/Pictures/placeholder3.jpg" alt="placeholder house">
+    <div class="parallax"></div>
     <h1>Modellrechnung</h1>
 </header>
 
 <body id="body" onLoad="window.location ='#main'">
     <div id="main" class="main">
 
-        <!-- Three input field. Values from them are yoused to calculate and draw the charts. -->
+        <!-- Three input fields. Values from them are yoused to calculate and draw the charts. -->
         <div class="input">
             <form action="index.php" method="POST" id="form">
                 <div>
@@ -68,7 +70,7 @@ if (!isset($_SESSION['anzahlbesuche'])) {
                             <p>≤10% «Weiche Eigenmittel» (PK-Verpfändung* oder PK-Bezug)</p>
                         </div>
                     </div>
-                    <input type="number" id="ek" name="Ek" required value="<?php echo $_POST['Ek'] ?>" />
+                    <input type="number" id="ek" name="Ek" onkeypress="return /[0-9]/i.test(event.key)" required value="<?php echo $_POST['Ek'] ?>" />
                 </div>
 
                 <div>
@@ -78,12 +80,12 @@ if (!isset($_SESSION['anzahlbesuche'])) {
                             <p>Einkommen, dass während eines Jahres ohne Steuerabzug erzielt wird.</p>
                         </div>
                     </div>
-                    <input type="number" name="Jahreseinkommen" id="Jek" required value="<?php echo $_POST['Jahreseinkommen'] ?>" />
+                    <input type="number" name="Jahreseinkommen" id="Jek" onkeypress="return /[0-9]/i.test(event.key)" required value="<?php echo $_POST['Jahreseinkommen'] ?>" />
                 </div>
 
                 <div>
                     <h3>Kaufpreis</h3>
-                    <input type="number" id="price" name="Kaufpreis" required value="<?php echo $_POST['Kaufpreis'] ?>" />
+                    <input type="number" id="price" name="Kaufpreis" onkeypress="return /[0-9]/i.test(event.key)" required value="<?php echo $_POST['Kaufpreis'] ?>" />
                 </div>
 
                 <input type="submit" name="calc" id="calc" value="Ausrechnen" id="b1">
@@ -91,7 +93,7 @@ if (!isset($_SESSION['anzahlbesuche'])) {
 
             </form>
 
-            <!-- Popup menue for detailed informations -> Shows up after Button Detailertes PDF is pressed -->
+            <!-- Popup menue for detailed informations -> Shows up after Button "Detailertes PDF" is pressed -->
             <form action="index.php" method="POST">
                 <div id="myModal" class="modal">
 
@@ -147,7 +149,7 @@ if (!isset($_SESSION['anzahlbesuche'])) {
                                                                                                         }
                                                                                                     } ?></h2>
 
-            <canvas id="myChart" class="chart" ></canvas>
+            <canvas id="myChart" class="chart"></canvas>
         </div>
 
         <!-- Right side with output fields  -->
@@ -250,7 +252,7 @@ if (!isset($_SESSION['anzahlbesuche'])) {
         </div>
 
     </div>
-    
+
     <!-- Texts from Dropdowns -->
     <div class="text">
         <h2>Fragen zum Hypothekenrechner und Tragbarkeit</h2>
@@ -377,7 +379,7 @@ if (!isset($_SESSION['anzahlbesuche'])) {
     function calcMonatlichegesammtkosten($kaufpreis, $ek)
     {
         $hypo = 100 - 100 / $kaufpreis * $ek;
-        $amortisationsbetrag = calcAmotisation($_POST['Kaufpreis'], $_POST['Ek']); // Only works if numberFormat isn't in function
+        $amortisationsbetrag = calcAmotisation($kaufpreis, $ek); // Only works if numberFormat isn't in function
         $zins =  ($kaufpreis - $ek) * 0.05;
         $unterhaltskosten = $kaufpreis * 0.007;
         if ($zins < 0) {
@@ -398,11 +400,12 @@ if (!isset($_SESSION['anzahlbesuche'])) {
     }
     function addToDB()
     {
-        $dbdir = 'C:/XAMPPREAL/htdocs/FormularSA/DB';
+      
+        $dbdir = '/kunden/364182_8001/web/2871458/A2871458/calc/DB';
         /* Datenbankdatei ausserhalb htdocs öffnen bzw. erzeugen */
         $db = new SQLite3("$dbdir/SA_Lfimmo.db");
         $sqlstr = "INSERT INTO TInformationen (InfoEK, InfoJahreseinkommen, InfoKaufpreis, InfoHypothekarzins, InfoAmortisation, InfoUnterhaltskosten, InfoMGesamtkosten, InfoVorname, InfoNachname, InfoEmail) VALUES";
-        $db->query($sqlstr . "('" . $_SESSION['Eigenkapital'] . "','" . $_SESSION['Einnahmen'] . "','" . $_SESSION['Kaufpreis'] . "','" . calcZins($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital']) . "','" . calcAmotisation($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital']) . "','" . $_SESSION['Kaufpreis'] * 0.007 . "','" . calcMonatlichegesammtkosten($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital']) . "','" . $_POST['vorname'] . "','" . $_POST['nachname'] . "','" . $_POST['email'] . "');");
+        $db->query($sqlstr . "('" . $_SESSION['Eigenkapital'] . "','" . $_SESSION['Einnahmen'] . "','" . $_SESSION['Kaufpreis'] . "','" . calcZins($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital']) . "','" . calcAmotisation($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital']) . "','" . $_SESSION['Kaufpreis'] * 0.007 . "','" . calcMonatlichegesammtkosten($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital']) . "','" . $_SESSION['Vorname'] . "','" . $_SESSION['Nachname'] . "','" . $_SESSION['Email'] . "');");
         $db->close();
         function sendPDF()
         {
