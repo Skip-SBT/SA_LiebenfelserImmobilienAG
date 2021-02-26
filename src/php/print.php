@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 <?php session_start(); ?>
+<!DOCTYPE html>
 
 <html>
 
@@ -170,11 +170,11 @@
         if ($_SESSION['Tragbarkeit'] <= 30 && $_SESSION['Finnanzierung'] >= 20) {
             echo "<h5>Die finanzielle Tragbarkeit, wie auch die Finanzierung ist gemäss Ihren Informationen ausreichend.</h5>";
         } elseif ($_SESSION['Tragbarkeit'] > 30 && $_SESSION['Finnanzierung'] >= 20) {
-            echo "<h5>Die finanzielle Tragbarkeit ist gemäss Ihren Angaben nicht ausreichend, jedoch sind genügend Eigenmittel vorhanden. Für den Kauf eines Objektes in dieser Kostendimension, müsste das Bruttohaushaltseinkommen um xy CHF grösser sein.</h5>";
+            echo "<h5>Die finanzielle Tragbarkeit ist gemäss Ihren Angaben nicht ausreichend, jedoch sind genügend Eigenmittel vorhanden. Für den Kauf eines Objektes in dieser Kostendimension, müsste das Bruttohaushaltseinkommen um  ".($_SESSION['Finnanzierung'])." CHF grösser sein.</h5>";
         } elseif ($_SESSION['Tragbarkeit'] <= 30 && $_SESSION['Finnanzierung'] < 20) {
             echo "<h5>Leider ist Ihr Eigenkapital für den Kaufpreis gemäss Ihren angaben nicht ausreichend. Jedoch ist die Tragbarkeit ausreichend. Mit ".($_SESSION['Kaufpreis']*0.2-$_SESSION['Eigenkapital'])." CHF zusätzlichem Eigenkapital, könnten Sie sich Ihren Wohntraum erfüllen.</h5>";
         } elseif ($_SESSION['Tragbarkeit'] > 30 && $_SESSION['Finnanzierung'] < 20) {
-            echo "<h5>Die finanzielle Tragbarkeit, wie auch der Eigenkapitalanteil sind nicht ausreichend. Damit Sie sich Ihren Wohntraum realisieren können benötigen Sie xy CHF mehr Bruttohaushaltseinkommen und ".($_SESSION['Kaufpreis']*0.2-$_SESSION['Eigenkapital'])." CHF mehr Eigenkapital.</h5>";
+            echo "<h5>Die finanzielle Tragbarkeit, wie auch der Eigenkapitalanteil sind nicht ausreichend. Damit Sie sich Ihren Wohntraum realisieren können benötigen Sie ".($_SESSION['Finnanzierung'])." CHF mehr Bruttohaushaltseinkommen und ".($_SESSION['Kaufpreis']*0.2-$_SESSION['Eigenkapital'])." CHF mehr Eigenkapital.</h5>";
         }
         echo "<h5>Bitte beachten Sie, dass sich mindestens 10% Ihres Eigenkapitals aus Barmittel und der 3. Säule zusammesetzen. Entsprechend darf der Pensionskassenanteil nicht über 10% des Eigenkapitals betragen.</h5>";
         echo "<h5>Allenfalls empfiehlt sich die Verpfändung der Pensionskasse an der Stelle  deren Auszahlung.</h5>";

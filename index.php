@@ -1,14 +1,16 @@
+<?php 
+error_reporting(E_ERROR | E_PARSE);
+session_start();
+?>
 <!DOCTYPE html>
 <!--
-    To change this license header, choose License Headers in Project Properties.
-    <meta charset="UTF-8">
-    To change this template file, choose Tools | Templates
-    and open the template in the editor.
+   Ersteller: Maximilian Hubrath
+   Beschreibung: Ein Hypothekenrechner im Auftrag von der Liebenfelser Immobilien AG
+   Updated: 26.2.2021
+   Copyright: C Maximilian Hubrath
 -->
 <html>
 <?php
-
-
 error_reporting(E_ERROR | E_PARSE);
 session_start();
 
@@ -46,7 +48,6 @@ if (!isset($_SESSION['anzahlbesuche'])) {
 </nav>
 
 <header>
-    <!--  -->
     <div class="parallax"></div>
     <h1>Modellrechnung</h1>
 </header>
@@ -54,7 +55,7 @@ if (!isset($_SESSION['anzahlbesuche'])) {
 <body id="body" onLoad="window.location ='#main'">
     <div id="main" class="main">
 
-        <!-- Three input field. Values from them are yoused to calculate and draw the charts. -->
+        <!-- Three input fields. Values from them are yoused to calculate and draw the charts. -->
         <div class="input">
             <form action="index.php" method="POST" id="form">
                 <div>
@@ -92,7 +93,7 @@ if (!isset($_SESSION['anzahlbesuche'])) {
 
             </form>
 
-            <!-- Popup menue for detailed informations -> Shows up after Button Detailertes PDF is pressed -->
+            <!-- Popup menue for detailed informations -> Shows up after Button "Detailertes PDF" is pressed -->
             <form action="index.php" method="POST">
                 <div id="myModal" class="modal">
 
@@ -148,7 +149,7 @@ if (!isset($_SESSION['anzahlbesuche'])) {
                                                                                                         }
                                                                                                     } ?></h2>
 
-            <canvas id="myChart" class="chart" ></canvas>
+            <canvas id="myChart" class="chart"></canvas>
         </div>
 
         <!-- Right side with output fields  -->
@@ -251,7 +252,7 @@ if (!isset($_SESSION['anzahlbesuche'])) {
         </div>
 
     </div>
-    
+
     <!-- Texts from Dropdowns -->
     <div class="text">
         <h2>Fragen zum Hypothekenrechner und Tragbarkeit</h2>
@@ -399,11 +400,12 @@ if (!isset($_SESSION['anzahlbesuche'])) {
     }
     function addToDB()
     {
-        $dbdir = 'C:/XAMPPREAL/htdocs/FormularSA/DB';
+      
+        $dbdir = '/kunden/364182_8001/web/2871458/A2871458/calc/DB';
         /* Datenbankdatei ausserhalb htdocs öffnen bzw. erzeugen */
         $db = new SQLite3("$dbdir/SA_Lfimmo.db");
         $sqlstr = "INSERT INTO TInformationen (InfoEK, InfoJahreseinkommen, InfoKaufpreis, InfoHypothekarzins, InfoAmortisation, InfoUnterhaltskosten, InfoMGesamtkosten, InfoVorname, InfoNachname, InfoEmail) VALUES";
-        $db->query($sqlstr . "('" . $_SESSION['Eigenkapital'] . "','" . $_SESSION['Einnahmen'] . "','" . $_SESSION['Kaufpreis'] . "','" . calcZins($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital']) . "','" . calcAmotisation($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital']) . "','" . $_SESSION['Kaufpreis'] * 0.007 . "','" . calcMonatlichegesammtkosten($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital']) . "','" . $_SESSION['Vorname'] . "','" . $_SESSION['Nachname'] . "','" . $_SESSION['Email'] . "');");     
+        $db->query($sqlstr . "('" . $_SESSION['Eigenkapital'] . "','" . $_SESSION['Einnahmen'] . "','" . $_SESSION['Kaufpreis'] . "','" . calcZins($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital']) . "','" . calcAmotisation($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital']) . "','" . $_SESSION['Kaufpreis'] * 0.007 . "','" . calcMonatlichegesammtkosten($_SESSION['Kaufpreis'], $_SESSION['Eigenkapital']) . "','" . $_SESSION['Vorname'] . "','" . $_SESSION['Nachname'] . "','" . $_SESSION['Email'] . "');");
         $db->close();
         function sendPDF()
         {
